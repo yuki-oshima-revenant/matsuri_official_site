@@ -1,0 +1,17 @@
+.headbar {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  background-color: transparent;
+  /* padding:0, 24px */
+}
+.buttonRight{
+  background-color: transparent;
+   color: white
+}
+.menuItem{
+  color: white;
+}
+.menuItem:hover{
+  color: black;
+}
