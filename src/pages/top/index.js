@@ -52,17 +52,21 @@ const Index = ({
                 title="bgm"
                 src={isMuted ? 'about:blank' : `${process.env.PUBLIC_URL}/identity.mp3`}
             >
+                {/* <audio className="midi" autoPlay loop>
+                    <source src={isMuted ? 'about:blank' : `${process.env.PUBLIC_URL}/identity.mp3`} />
+                </audio> */}
             </iframe>
             <Carousel effect="fade">
-                {/* <div>
-                    <img src={`${process.env.PUBLIC_URL}/image/2017.png`} alt="top_image" style={{ width: '100%' }} />
-                </div>
-                <div>
-                    <img src={`${process.env.PUBLIC_URL}/image/2018.png`} alt="top_image" style={{ width: '100%' }} />
-                </div> */}
                 <div>
                     <img src={`${process.env.PUBLIC_URL}/image/2019.png`} alt="top_image" style={{ width: '100%' }} />
                 </div>
+                <div>
+                    <img src={`${process.env.PUBLIC_URL}/image/2018.png`} alt="top_image" style={{ width: '100%' }} />
+                </div>
+                <div>
+                    <img src={`${process.env.PUBLIC_URL}/image/2017.png`} alt="top_image" style={{ width: '100%' }} />
+                </div>
+
             </Carousel>
             <Card
                 style={{ margin: 24, backgroundColor: 'black', color: 'white' }}
