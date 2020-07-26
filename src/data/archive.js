@@ -1,0 +1,227 @@
+import artistName from '../enums/artist';
+import artist from '../enums/artist';
+
+const archive2019 = [
+    {
+        name: artistName.revenant,
+        time: '21:00~21:50',
+        tracklistId: '1zNNnnoF1Yv9Fmi_eVOWq2Mc_d09HUi-e',
+        recordingId: '1XQz2cw7BWudV798LmvQVWgyY8dgKkgt7',
+    },
+    {
+        name: artistName.tyaposon,
+        time: '21:50~22:30',
+        tracklistId: '11a39xzaadWiwV1bdHGJzk2Gn4oTr_cdb',
+        recordingId: '1JMAENbkUv07QXRveOdCcLvX0thRFsIVG',
+    },
+    {
+        name: artistName.carpainter,
+        time: '22:30~23:00',
+        tracklistId: '1DMlLDzCB2ZPYGucLbiAMQ6n29qBY-lOj',
+        recordingId: '1yHHa2q8dGZTeMP8GYbsBSTHC28bIrPPz',
+    },
+    {
+        name: artistName.getty,
+        time: '23:00~23:40',
+        tracklistId: '',
+        recordingId: '1G5cQJboE8ZdxuiOG1tVGPvh5Gx1GSWCQ',
+    },
+    {
+        name: artistName.isagen,
+        time: '23:40~0:10',
+        tracklistId: '',
+        recordingId: '1pL7_KKCMSlx2w0x1TqxbHtSgHap1cZ3f',
+    },
+    {
+        name: artistName.kamisory,
+        time: '0:10~0:50',
+        tracklistId: '',
+        recordingId: '1NoStBLJ10pbpIObLgdJDG3dv9IvERMvG',
+    },
+    {
+        name: artistName.revenant,
+        time: '0:50~1:20',
+        tracklistId: '',
+        recordingId: '1R6RAbEHa-x5KZv9RDLspg4xN9LMOJBnA',
+    },
+    {
+        name: artistName.carpainter,
+        time: '1:20~2:10',
+        tracklistId: '',
+        recordingId: '1ko6_MW3sDJtZVomK-kh_7uBCz-TLyNqI',
+    },
+    {
+        name: artistName.tyaposon,
+        time: '2:10~2:40',
+        tracklistId: '',
+        recordingId: '1dMZyEOFmZGysVpecFmVCQnV-JzyNwIge',
+    },
+    {
+        name: artistName.getty,
+        time: '2:40~3:20',
+        tracklistId: '',
+        recordingId: '10LZBVyygRk2o0XzmBuBuogtCIpPXnSsA',
+    },
+    {
+        name: artistName.kamisory,
+        time: '3:20~4:00',
+        tracklistId: '',
+        recordingId: '1yHVgri6I-Q7IgNQmiN3Zads1d6n309XF',
+    },
+    {
+        name: artistName.isagen,
+        time: '4:00~4:50',
+        tracklistId: '',
+        recordingId: '1GHhB2XFx_xqWPQayDMGKHihJHd3Gzv6Z',
+    }
+];
+
+const archive2018 = [
+    {
+        name: artistName.isagen,
+        time: '21:00~21:30',
+        tracklistId: '',
+        recordingId: '11h272f4fsMzPwe8RoFXuuubwY966vT_j',
+    },
+    {
+        name: artistName.kamisory,
+        time: '21:30~22:00',
+        tracklistId: '',
+        recordingId: '1ryQaGtGDvIoCXR8N79wihb7b3Xy-HnM1',
+    },
+    {
+        name: artistName.tyaposon,
+        time: '22:00~22:30',
+        tracklistId: '',
+        recordingId: '1FneCv3aTSXpEDo5NTAqOwGaCYbR1zzuo',
+    },
+    {
+        name: artistName.carpainter,
+        time: '22:30~23:10',
+        tracklistId: '',
+        recordingId: '1e4l98vNEWdyyRq_jlQYZRi79NvkKUW3m',
+    },
+    {
+        name: artistName.neuromancer,
+        time: '23:10~23:50',
+        tracklistId: '',
+        recordingId: '1u8JaDwSF_fz29xjRZ0z_ePZGWOz5YdkH',
+    },
+    {
+        name: artistName.getty,
+        time: '23:50~1:00',
+        tracklistId: '',
+        recordingId: '1LlQzCS3awp5nTNN-qEVZd5d67IIyt3MW',
+    },
+    {
+        name: artistName.revenant,
+        time: '1:00~1:30',
+        tracklistId: '',
+        recordingId: '1wS-6XO2AjKxay0QOzmax1BUe8Val019U',
+    },
+    {
+        name: artistName.isagen,
+        time: '1:30~2:10',
+        tracklistId: '',
+        recordingId: '16NIcud2PD2o-OYYa2NHP_lTZDJXMh6fi',
+    },
+    {
+        name: artistName.tyaposon,
+        time: '2:10~2:50',
+        tracklistId: '',
+        recordingId: '1hcPLWRVGKjnG_C2WuR7exU_KCzwsxIfp',
+    },
+    {
+        name: artistName.kamisory,
+        time: '2:50~3:30',
+        tracklistId: '',
+        recordingId: '1kMbB3eKvSt3xax3quGXZPEsPZBxCvSfu',
+    },
+    {
+        name: artistName.carpainter,
+        time: '3:30~4:00',
+        tracklistId: '',
+        recordingId: '1b1seZ-LEvVVDlYqIfj8c8VcMdADDTqjs',
+    },
+    {
+        name: artistName.revenant,
+        time: '4:00~4:30',
+        tracklistId: '',
+        recordingId: '1VSvCyAHc4UDcHHjF81Kcp9lQld92YXD-',
+    }
+];
+
+const archive2017 = [
+    {
+        name: artistName.tyaposon,
+        time: '21:00~21:40',
+        tracklistId: '',
+        recordingId: '11DJuWbkExRDEQD27rPuhq4R95MNh540X',
+    },
+    {
+        name: artistName.isagen,
+        time: '21:40~22:20',
+        tracklistId: '',
+        recordingId: '1wgNjDq_bwx9RTDTOBzHaaZ_J-WsY6lSV',
+    },
+    {
+        name: artistName.getty,
+        time: '22:20~23:00',
+        tracklistId: '',
+        recordingId: '',
+    },
+    {
+        name: artistName.kamisory,
+        time: '23:00~23:40',
+        tracklistId: '',
+        recordingId: '1Jzcw2HKY9PfriQvkk9EFG_-l-bfw32Z2',
+    },
+    {
+        name: artistName.revenant,
+        time: '23:40~00:20',
+        tracklistId: '',
+        recordingId: '1b_9k5sXxSzvY0EqkBkUL3fnHNCR4-Yyw',
+    },
+    {
+        name: artistName.carpainter,
+        time: '00:20~01:00',
+        tracklistId: '',
+        recordingId: '1l63oZlFyCcZqs6R1pjtLwlUKgFS8vIZT',
+    },
+    {
+        name: artistName.getty,
+        time: '01:40~02:20',
+        tracklistId: '',
+        recordingId: '1XwGDpqK018OczOhXUyq3jam7vslT7WXf',
+    },
+    {
+        name: artistName.tyaposon,
+        time: '02:20~03:00',
+        tracklistId: '',
+        recordingId: '1VtQ1ZV0FdZjZEfqXcTUT8n3_5WGaIyBP',
+    },
+    {
+        name: artistName.kamisory,
+        time: '03:00~03:40',
+        tracklistId: '',
+        recordingId: '1uNBDsRT8nNFqp-URHxZUItTjTTcTw2oA',
+    },
+    {
+        name: artistName.revenant,
+        time: '03:40~04:20',
+        tracklistId: '',
+        recordingId: '1vjofYSdCeIvYH1zLtvGssEYxaldMQVKs',
+    },
+    {
+        name: artistName.isagen,
+        time: '03:40~04:20',
+        tracklistId: '',
+        recordingId: '1lWkTcNu2g3FJ-Cuyr2X7dr7D-GLIkujZ',
+    }
+];
+
+export const archiveDataIndex = {
+    "2019": archive2019,
+    "2018": archive2018,
+    "2017": archive2017,
+}

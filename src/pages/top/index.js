@@ -1,72 +1,35 @@
-import React, { useState } from 'react';
-import { Typograpy, Card, Carousel, Row, Col } from 'antd';
+import React from 'react';
+import { Card, Carousel, Row, Col } from 'antd';
 import BasicLayout from '../../components/layout/BasicLayout';
 import FlierCard from '../../components/card/FlierCard';
 import CategoryCard from '../../components/card/CategoryCard';
+import {nextEvent, pastEventList, dekamoriList} from '../../data/event';
 import './index.css';
 
-const { Meta } = Card;
-
 const Index = ({
-
+    history
 }) => {
-    const [isMuted, setIsMuted] = useState(true);
-    const nextEvent = {
-        id: '2020',
-        title: '八王子別天地',
-        description: '2020.09.xx'
-    };
-    const pastEventList = [
-        {
-            id: '2019',
-            title: '沢庵収穫祭',
-            description: '2019.08.10'
-        },
-        {
-            id: '2018',
-            title: '豊楽安寧祭',
-            description: '2018.08.18'
-        },
-        {
-            id: '2017',
-            title: '七星剣武祭',
-            description: '2017.08.18'
-        }
-    ];
-    const dekamoriList = [
-        {
-            id: '0001',
-            title: '鮎の塩焼きまるかじり',
-            description: '2019.03.10 にいがた酒の陣'
-        }
-    ];
-
     return (
-        <BasicLayout
-            isMuted={isMuted}
-            setIsMuted={setIsMuted}
-        >
-            <iframe
-                allow="autoplay"
-                className="midi"
-                title="bgm"
-                src={isMuted ? 'about:blank' : `${process.env.PUBLIC_URL}/identity.mp3`}
-            >
-                {/* <audio className="midi" autoPlay loop>
-                    <source src={isMuted ? 'about:blank' : `${process.env.PUBLIC_URL}/identity.mp3`} />
-                </audio> */}
-            </iframe>
+        <BasicLayout>
             <Carousel effect="fade">
                 <div>
-                    <img src={`${process.env.PUBLIC_URL}/image/2019.png`} alt="top_image" style={{ width: '100%' }} />
+                    <img
+                        src={`${process.env.PUBLIC_URL}/flier/2019.png`}
+                        alt="top_image_2019"
+                        style={{ width: '100%' }} />
                 </div>
                 <div>
-                    <img src={`${process.env.PUBLIC_URL}/image/2018.png`} alt="top_image" style={{ width: '100%' }} />
+                    <img
+                        src={`${process.env.PUBLIC_URL}/flier/2018.png`}
+                        alt="top_image_2018"
+                        style={{ width: '100%' }} />
                 </div>
                 <div>
-                    <img src={`${process.env.PUBLIC_URL}/image/2017.png`} alt="top_image" style={{ width: '100%' }} />
+                    <img
+                        src={`${process.env.PUBLIC_URL}/flier/2017.png`}
+                        alt="top_image2017"
+                        style={{ width: '100%' }} />
                 </div>
-
             </Carousel>
             <Card
                 style={{ margin: 24, backgroundColor: 'black', color: 'white' }}

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Layout, Button, Menu, Dropdown } from 'antd';
 import { HashLink } from 'react-router-hash-link';
 
@@ -12,9 +12,7 @@ const { Header, Content, Footer } = Layout;
 
 
 const Index = ({
-    children,
-    isMuted,
-    setIsMuted
+    children
 }) => {
     const rightButtonStyle = {
         backgroundColor: 'transparent',
@@ -26,18 +24,20 @@ const Index = ({
     };
     const menuList = [
         {
-            id:'next',
-            name:'次の祭'
+            id: 'next',
+            name: '次の祭'
         },
         {
-            id:'past',
-            name:'過去の祭'
+            id: 'past',
+            name: '過去の祭'
         },
         {
-            id:'dekamori',
-            name:'デカ盛り美食大会'
+            id: 'dekamori',
+            name: 'デカ盛り美食大会'
         }
-    ]
+    ];
+
+    const [isMuted, setIsMuted] = useState(true);
     const menu = useMemo(() => {
         return (
             <Menu
@@ -46,10 +46,14 @@ const Index = ({
                     // borderColor: 'transparent' 
                 }}
             >
+                <Menu.Item
+                    className={styles.menuItem}>
+                    <HashLink to={`/top`}>Top</HashLink>
+                </Menu.Item>
                 {menuList.map((menu) => (
                     <Menu.Item
                         className={styles.menuItem}>
-                        <HashLink to={`#${menu.id}`}>{menu.name}</HashLink>
+                        <HashLink to={`/top#${menu.id}`}>{menu.name}</HashLink>
                     </Menu.Item>
                 ))}
             </Menu>
@@ -84,6 +88,16 @@ const Index = ({
                 {children}
             </Content>
             <Footer style={{ textAlign: 'center', backgroundColor: 'black', color: 'white' }}>©︎2020 Yuki Oshima</Footer>
+            <iframe
+                allow="autoplay"
+                className={styles.bgm}
+                title="bgm"
+                src={isMuted ? 'about:blank' : `${process.env.PUBLIC_URL}/identity.mp3`}
+            >
+                {/* <audio className="midi" autoPlay loop>
+                    <source src={isMuted ? 'about:blank' : `${process.env.PUBLIC_URL}/identity.mp3`} />
+                </audio> */}
+            </iframe>
         </Layout>
     );
 };
