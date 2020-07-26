@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from 'react';
-import { Card, Row, Col, List, Modal, Input, Button } from 'antd';
+import { Card, Row, Col, List, Modal, Input, Button, Alert } from 'antd';
 import BasicLayout from '../../components/layout/BasicLayout';
 import { archiveDataIndex } from '../../data/archive';
 import { pastEventList } from '../../data/event';
@@ -12,6 +12,7 @@ const Index = ({
     const [inputPassword, setInputPassword] = useState();
     const [targetLinkid, setTargetLinkid] = useState();
     const [passed, setPassed] = useState(false);
+    const [alertVisible, setAlertVisible] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -34,14 +35,19 @@ const Index = ({
     }, [passed])
 
     const onPasswordEnter = useCallback(() => {
+        setAlertVisible(false);
         if (String(inputPassword) === "5163") {
             window.open(`https://drive.google.com/file/d/${targetLinkid}/view?usp=sharing`);
             setModalOpen(false);
             setPassed(true);
+        }else{
+            setAlertVisible(true);
         }
     }, [targetLinkid, inputPassword]);
 
     const handleModalCancel = useCallback(() => {
+        setAlertVisible(false);
+        setInputPassword();
         setModalOpen(false);
     }, []);
 
@@ -122,6 +128,16 @@ const Index = ({
                     onChange={(e) => { setInputPassword(e.target.value) }}
                     onPressEnter={onPasswordEnter}
                 />
+                {alertVisible
+                    && (
+                        <Alert
+                            message="エラー！"
+                            description="パスワードが違います"
+                            type="error"
+                            showIcon
+                            style={{ marginTop: '12px' }}
+                        />
+                    )}
             </Modal>
         </BasicLayout>
     );
