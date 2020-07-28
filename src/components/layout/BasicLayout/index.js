@@ -70,16 +70,24 @@ const Index = ({
                 paddingRight: 24,
                 paddingLeft: 24,
             }}>
-                <Dropdown overlay={menu}>
-                    <Button icon={<MenuOutlined />} size='large' style={{
-                        backgroundColor: 'transparent',
-                        color: 'white',
-                        borderColor: 'transparent'
-                    }} />
+                <Dropdown overlay={menu} trigger={['click']}>
+                    <Button
+                        icon={<MenuOutlined />}
+                        size='large'
+                        style={{
+                            backgroundColor: 'transparent',
+                            color: 'white',
+                            borderColor: 'transparent'
+                        }} />
                 </Dropdown>
-                <Button icon={<GithubOutlined />} size='large' style={rightButtonStyle}
-                    onClick={() => { window.location.href = 'https://github.com/yuki-oshima-revenant/matsuri_official_site' }} />
-                <Button size='large' style={rightButtonStyle}
+                <Button
+                    icon={<GithubOutlined />}
+                    size='large'
+                    style={rightButtonStyle}
+                    onClick={() => { window.open('https://github.com/yuki-oshima-revenant/matsuri_official_site'); }} />
+                <Button
+                    size='large'
+                    style={rightButtonStyle}
                     onClick={() => { setIsMuted(!isMuted) }}>
                     {isMuted ? 'sound on' : 'sound off'}
                 </Button>
