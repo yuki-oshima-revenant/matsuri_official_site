@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Layout, Button, Menu, Dropdown } from 'antd';
 import { HashLink } from 'react-router-hash-link';
-
+import { Link } from 'react-router-dom';
 import {
     MenuOutlined,
     GithubOutlined
@@ -40,20 +40,20 @@ const Index = ({
     const [isMuted, setIsMuted] = useState(true);
     const menu = useMemo(() => {
         return (
-            <Menu
-                style={{
-                    // backgroundColor: 'transparent',
-                    // borderColor: 'transparent' 
-                }}
-            >
+            <Menu>
                 <Menu.Item
                     className={styles.menuItem}>
-                    <HashLink to={`/top`}>Top</HashLink>
+                    <Link to={`/top`} onClick={() => {
+                        window.scroll({
+                            top: 0,
+                            behavior: "smooth"
+                        })
+                    }}>Top</Link>
                 </Menu.Item>
                 {menuList.map((menu) => (
                     <Menu.Item
                         className={styles.menuItem}>
-                        <HashLink to={`/top#${menu.id}`}>{menu.name}</HashLink>
+                        <HashLink to={`/top#${menu.id}`} smooth>{menu.name}</HashLink>
                     </Menu.Item>
                 ))}
             </Menu>
