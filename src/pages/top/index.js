@@ -3,8 +3,8 @@ import { Card, Carousel, Row, Col } from 'antd';
 import BasicLayout from '../../components/layout/BasicLayout';
 import FlierCard from '../../components/card/FlierCard';
 import CategoryCard from '../../components/card/CategoryCard';
-import {nextEvent, pastEventList, dekamoriList} from '../../data/event';
-import './index.css';
+import { nextEvent, pastEventList, dekamoriList } from '../../data/event';
+import styles from './index.module.css';
 
 const Index = ({
     history
@@ -12,24 +12,31 @@ const Index = ({
     return (
         <BasicLayout>
             <Carousel effect="fade">
-                <div>
+                <div className={styles.trim}>
+                    <img
+                        src={`${process.env.PUBLIC_URL}/flier/2020.png`}
+                        alt="top_image_2020"
+                        style={{ width: '100%' }}
+                    />
+                </div>
+                {/* <div className={styles.trim}>
                     <img
                         src={`${process.env.PUBLIC_URL}/flier/2019.png`}
                         alt="top_image_2019"
                         style={{ width: '100%' }} />
                 </div>
-                <div>
+                <div className={styles.trim}>
                     <img
                         src={`${process.env.PUBLIC_URL}/flier/2018.png`}
                         alt="top_image_2018"
                         style={{ width: '100%' }} />
                 </div>
-                <div>
+                <div className={styles.trim}>
                     <img
                         src={`${process.env.PUBLIC_URL}/flier/2017.png`}
                         alt="top_image2017"
                         style={{ width: '100%' }} />
-                </div>
+                </div> */}
             </Carousel>
             <Card
                 style={{ margin: 24, backgroundColor: 'black', color: 'white' }}
