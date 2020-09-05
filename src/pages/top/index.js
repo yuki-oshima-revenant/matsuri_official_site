@@ -24,7 +24,8 @@ const Index = ({
 
     return (
         <BasicLayout>
-            <Carousel effect="fade">
+            <Carousel
+                effect="fade">
                 {/* <div className={styles.container}>
                     <div className={styles.trim}>
                         <img
@@ -50,10 +51,10 @@ const Index = ({
                         <img
                             src={`${process.env.PUBLIC_URL}/background/2020_03.png`}
                             alt="top_image_2020"
-                            style={{ width: '100%' }}
+                            className={styles.topImage}
                         />
                     </div>
-                {overlayText}
+                    {overlayText}
                 </div>
                 {/* <div className={styles.trim}>
                     <img
