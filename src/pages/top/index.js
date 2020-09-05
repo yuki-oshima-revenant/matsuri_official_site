@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Card, Carousel, Row, Col } from 'antd';
 import BasicLayout from '../../components/layout/BasicLayout';
 import FlierCard from '../../components/card/FlierCard';
@@ -9,15 +9,51 @@ import styles from './index.module.css';
 const Index = ({
     history
 }) => {
+    const overlayText = useMemo(() => {
+        return (
+            <div className={styles.centeredText}>
+                <div>
+                    僕の<span className={styles.emphasis}>最弱</span>を以て、
+                            </div>
+                <div>
+                    君の<span className={styles.emphasis}>最強</span>を打ち破る——。
+                            </div>
+            </div>
+        )
+    }, []);
+
     return (
         <BasicLayout>
             <Carousel effect="fade">
-                <div className={styles.trim}>
-                    <img
-                        src={`${process.env.PUBLIC_URL}/flier/2020.png`}
-                        alt="top_image_2020"
-                        style={{ width: '100%' }}
-                    />
+                {/* <div className={styles.container}>
+                    <div className={styles.trim}>
+                        <img
+                            src={`${process.env.PUBLIC_URL}/background/2020_01.png`}
+                            alt="top_image_2020"
+                            style={{ width: '100%' }}
+                        />
+                    </div>
+                {overlayText}
+                </div> */}
+                {/* <div className={styles.container}>
+                    <div className={styles.trim}>
+                        <img
+                            src={`${process.env.PUBLIC_URL}/background/2020_02.png`}
+                            alt="top_image_2020"
+                            style={{ width: '100%' }}
+                        />
+                    </div>
+                {overlayText}
+                </div> */}
+                <div className={styles.container}>
+                    <div className={styles.trim}>
+                        <img
+                            src={`${process.env.PUBLIC_URL}/background/2020_03.png`}
+                            alt="top_image_2020"
+                            style={{ width: '100%' }}
+                        />
+                    </div>
+                {overlayText}
                 </div>
                 {/* <div className={styles.trim}>
                     <img
@@ -52,6 +88,7 @@ const Index = ({
                                     <Col sm={24} md={8}>
                                         <FlierCard
                                             category="flier"
+                                            type="next"
                                             eventInfo={nextEvent}
                                         />
                                     </Col>

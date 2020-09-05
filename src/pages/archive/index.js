@@ -68,22 +68,6 @@ const Index = ({
 
     return (
         <BasicLayout>
-            <iframe
-                title="twitch_movie"
-                src="https://player.twitch.tv/?channel=matsuri_hachioji&parent=localhost"
-                frameborder="0"
-                allowfullscreen="true"
-                scrolling="no"
-                height="378"
-                width="620"
-            />
-            <iframe
-                title="twitch_chat"
-                id="chat_embed"
-                src="https://www.twitch.tv/embed/matsuri_hachioji/chat?parent=localhost"
-                height="500"
-                width="350"
-            />
             <Card
                 style={{ margin: 36, backgroundColor: 'black', color: 'white' }}
                 bordered={false}

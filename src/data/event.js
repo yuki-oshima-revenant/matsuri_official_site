@@ -1,7 +1,7 @@
 export const nextEvent = {
     id: '2020',
     title: '八王子別天地',
-    description: '2020.09.xx'
+    description: '2020.09.12 @Twitch'
 };
 export const pastEventList = [
     {

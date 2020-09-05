@@ -2,6 +2,32 @@
     display: none;
 }
 
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.centeredText {
+    -webkit-writing-mode: vertical-rl;
+    -ms-writing-mode: tb-rl;
+    writing-mode: vertical-rl;
+    
+    text-align:left;
+    position: absolute;
+    font-size: 2.5vw;
+    font-family: Hiragino Mincho ProN, YuMincho, sans-serif;
+    font-weight: bold;
+    
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.emphasis{
+    color: rgb(228, 0, 0);
+    font-size: 3vw;
+}
+
 .trim{
     position:relative;
   }
