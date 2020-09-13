@@ -1,6 +1,6 @@
 export default {
     revenant:"Revenant",
-    tyaposon:"tyaposon",
+    tyaposon:"txxxxxxx",
     carpainter:"Cxxxxxxxxx",
     getty:"Gxxxx",
     isagen:"ixxxxx",

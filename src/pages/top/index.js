@@ -26,26 +26,6 @@ const Index = ({
         <BasicLayout>
             <Carousel
                 effect="fade">
-                {/* <div className={styles.container}>
-                    <div className={styles.trim}>
-                        <img
-                            src={`${process.env.PUBLIC_URL}/background/2020_01.png`}
-                            alt="top_image_2020"
-                            style={{ width: '100%' }}
-                        />
-                    </div>
-                {overlayText}
-                </div> */}
-                {/* <div className={styles.container}>
-                    <div className={styles.trim}>
-                        <img
-                            src={`${process.env.PUBLIC_URL}/background/2020_02.png`}
-                            alt="top_image_2020"
-                            style={{ width: '100%' }}
-                        />
-                    </div>
-                {overlayText}
-                </div> */}
                 <div className={styles.container}>
                     <div className={styles.trim}>
                         <img
@@ -79,7 +59,7 @@ const Index = ({
                 style={{ margin: 24, backgroundColor: 'black', color: 'white' }}
                 bordered={false}
             >
-                <div id="next">
+                {/* <div id="next">
                     <Row gutter={[24, 24]}>
                         <Col>
                             <CategoryCard
@@ -97,7 +77,7 @@ const Index = ({
                             </CategoryCard>
                         </Col>
                     </Row>
-                </div>
+                </div> */}
                 <div id="past">
                     <Row>
                         <Col>

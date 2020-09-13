@@ -26,13 +26,13 @@ const Index = ({
     }, [match]);
 
     const onLinkClick = useCallback((linkId) => {
-        if (passed) {
+        if (targetEventData.id === '2020' || passed) {
             window.open(`https://drive.google.com/file/d/${linkId}/view?usp=sharing`);
         } else {
             setModalOpen(true);
             setTargetLinkid(linkId);
         }
-    }, [passed])
+    }, [passed, targetEventData]);
 
     const onPasswordEnter = useCallback(() => {
         setAlertVisible(false);
@@ -60,11 +60,13 @@ const Index = ({
         }
         if (data.recordingId !== '') {
             actionList.push(
-                <a onClick={() => { onLinkClick(data.recordingId); }}>Recording</a>
+                <a onClick={() => { onLinkClick(data.recordingId); }}>
+                    {targetEventData.id === '2020' ? 'Video' : 'Recording'}
+                </a>
             );
         }
         return actionList;
-    }, [onLinkClick]);
+    }, [onLinkClick, targetEventData]);
 
     return (
         <BasicLayout>

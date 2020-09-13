@@ -1,5 +1,61 @@
 import artistName from '../enums/artist';
-import artist from '../enums/artist';
+
+const archive2020 = [
+    {
+        name: artistName.tyaposon,
+        time: '21:00~21:30',
+        tracklistId: '',
+        recordingId: '18tN7apC3TbI1UQ4jIaZkwNTBQQeazVUT',
+    },
+    {
+        name: artistName.getty,
+        time: '21:35~22:05',
+        tracklistId: '',
+        recordingId: '1WVdc7fz1P1VFifTru0TW7mYUyW4f-dOE',
+    },
+    {
+        name: artistName.kamisory,
+        time: '22:10~22:55',
+        tracklistId: '',
+        recordingId: '121W6sfSfgLCwZBcjKzPK3I5H8SdmsAeu',
+    },
+    {
+        name: artistName.isagen,
+        time: '23:00~23:25',
+        tracklistId: '',
+        recordingId: '1M-sjqXYYVCEIkTUKpTpHIi3eGnWFSfPH',
+    },
+    {
+        name: artistName.revenant,
+        time: '23:30~0:15',
+        tracklistId: '',
+        recordingId: '1vvG0hyuZeDw1wV4JSYeSxWovACx1AZpF',
+    },
+    {
+        name: artistName.carpainter,
+        time: '0:20~1:05',
+        tracklistId: '',
+        recordingId: '1osbx3XmjFqJhuAxoeciDRJaSJzg6Jcxf',
+    },
+    {
+        name: artistName.isagen,
+        time: '1:10~1:45',
+        tracklistId: '',
+        recordingId: '18zRuC0vjDVqenotb3YkIH8JVzXd1Du0f',
+    },
+    {
+        name: artistName.tyaposon,
+        time: '1:50~2:20',
+        tracklistId: '',
+        recordingId: '1pXPSqRPnGIGkOMmkFtGveaqiWruXzquF',
+    },
+    {
+        name: artistName.getty,
+        time: '2:25~2:55',
+        tracklistId: '',
+        recordingId: '1arJ10adg621pT9ZHOnuncAuMEoFJvziN',
+    }
+];
 
 const archive2019 = [
     {
@@ -221,6 +277,7 @@ const archive2017 = [
 ];
 
 export const archiveDataIndex = {
+    "2020":archive2020,
     "2019": archive2019,
     "2018": archive2018,
     "2017": archive2017,

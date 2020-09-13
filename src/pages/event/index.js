@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Card } from 'antd';
 
 import BasicLayout from '../../components/layout/BasicLayout';
@@ -21,12 +21,12 @@ export default () => {
                     </div>
                 }
             >
-                <Row>
+                <Row gutter={[16, 0]}>
                     <Col xs={24} sm={18}>
                         <div className={styles.iframeContainerMovie}>
                             <iframe
                                 title="twitch_movie"
-                                src={`https://player.twitch.tv/?channel=matsuri_hachioji&parent=${parent}`}
+                                src={`https://player.twitch.tv/?channel=matsuri_hachioji&parent=${parent}&autoplay=false`}
                                 frameborder="0"
                                 allowfullscreen="true"
                                 scrolling="no"
