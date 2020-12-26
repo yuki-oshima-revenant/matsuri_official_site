@@ -23,10 +23,10 @@ const Index = ({
         marginTop: 16
     };
     const menuList = [
-        {
-            id: 'next',
-            name: '次の祭'
-        },
+        // {
+        //     id: 'next',
+        //     name: '次の祭'
+        // },
         {
             id: 'past',
             name: '過去の祭'
@@ -67,8 +67,8 @@ const Index = ({
                 zIndex: 1,
                 width: '100%',
                 backgroundColor: 'transparent',
-                paddingRight: 24,
-                paddingLeft: 24,
+                paddingRight: 12,
+                paddingLeft: 12,
             }}>
                 <Dropdown overlay={menu} trigger={['click']}>
                     <Button

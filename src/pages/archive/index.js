@@ -65,13 +65,20 @@ const Index = ({
                 </a>
             );
         }
+        if (data.streamIRecId && data.streamIRecId !== '') {
+            actionList.push(
+                <a onClick={() => { onLinkClick(data.streamIRecId); }}>
+                    {'StreamRec'}
+                </a>
+            );
+        }
         return actionList;
     }, [onLinkClick, targetEventData]);
 
     return (
         <BasicLayout>
             <Card
-                style={{ margin: 36, backgroundColor: 'black', color: 'white' }}
+                style={{ marginTop: 32, marginRight: 16, marginLeft: 16, backgroundColor: 'black', color: 'white' }}
                 bordered={false}
                 title={
                     <div className={styles.title}>

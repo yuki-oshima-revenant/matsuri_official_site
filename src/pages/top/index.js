@@ -56,7 +56,7 @@ const Index = ({
                 </div> */}
             </Carousel>
             <Card
-                style={{ margin: 24, backgroundColor: 'black', color: 'white' }}
+                style={{ marginRight: 16, marginLeft: 16, backgroundColor: 'black', color: 'white' }}
                 bordered={false}
             >
                 {/* <div id="next">

@@ -13,7 +13,7 @@ export default () => {
     return (
         <BasicLayout>
             <Card
-                style={{ margin: 36, backgroundColor: 'black', color: 'white' }}
+                style={{ marginTop: 32, marginBottom: 32, marginRight: 16, marginLeft: 16, backgroundColor: 'black', color: 'white' }}
                 bordered={false}
                 title={
                     <div className={styles.title}>

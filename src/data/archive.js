@@ -4,56 +4,65 @@ const archive2020 = [
     {
         name: artistName.tyaposon,
         time: '21:00~21:30',
-        tracklistId: '',
+        tracklistId: '15O6cpiPpOG1mRamcuUPl3RWwARiTFeGY',
         recordingId: '18tN7apC3TbI1UQ4jIaZkwNTBQQeazVUT',
+        streamIRecId:'1wCp1Utjka6WM3F23mPUuNQbzKeQAa2tt'
     },
     {
         name: artistName.getty,
         time: '21:35~22:05',
-        tracklistId: '',
+        tracklistId: '1GolqJo6ypD2dr5V8Ia08bTiybXTfPTCO',
         recordingId: '1WVdc7fz1P1VFifTru0TW7mYUyW4f-dOE',
+        streamIRecId:'1Lo3tosesEF7lbFnMFRSpqSYbAXRRBVkq'
     },
     {
         name: artistName.kamisory,
         time: '22:10~22:55',
-        tracklistId: '',
+        tracklistId: '147kkfczN9X6IOXgFSw9hgN9VdQCu0hXK',
         recordingId: '121W6sfSfgLCwZBcjKzPK3I5H8SdmsAeu',
+        streamIRecId:'1KX2zJQrRxt_ugVqXXPMLoPKPHCpv9ue6'
     },
     {
         name: artistName.isagen,
         time: '23:00~23:25',
-        tracklistId: '',
+        tracklistId: '1Vi6LzL0kD3cgY3b9F9h9et4X6PrBcZIh',
         recordingId: '1M-sjqXYYVCEIkTUKpTpHIi3eGnWFSfPH',
+        streamIRecId:'1AVAM9M5cTxuQDHLY8WCQxiCEm2w_OASM'
     },
     {
         name: artistName.revenant,
         time: '23:30~0:15',
-        tracklistId: '',
+        tracklistId: '10UNUtzqzC6KQTWOpYCor9yAfN8sbZBE7L68YtWsbgMc',
         recordingId: '1vvG0hyuZeDw1wV4JSYeSxWovACx1AZpF',
+        streamIRecId:'1asLU3hnUMZzkHWePr6aj6QLNq0t-dkqu'
     },
     {
         name: artistName.carpainter,
         time: '0:20~1:05',
-        tracklistId: '',
+        tracklistId: '1hHCDpM3nHFZF1y2seoEbaMmcmwmMqpYz',
         recordingId: '1osbx3XmjFqJhuAxoeciDRJaSJzg6Jcxf',
+        streamIRecId:'1OTT4DJtO6zvabed_wGEv6itt9rz6Qs8G'
     },
     {
         name: artistName.isagen,
         time: '1:10~1:45',
-        tracklistId: '',
+        tracklistId: '1fZiCBsz_chAAmwQ-Eu8K8KUKhaqpFSQJ',
         recordingId: '18zRuC0vjDVqenotb3YkIH8JVzXd1Du0f',
+        streamIRecId:'1sRYB-M1429sB1aNXlCE45Uoed-N9BLUG'
     },
     {
         name: artistName.tyaposon,
         time: '1:50~2:20',
-        tracklistId: '',
+        tracklistId: '1Nm6Y9Q2BnKdz-P42McUAMGY78DOIOCgk',
         recordingId: '1pXPSqRPnGIGkOMmkFtGveaqiWruXzquF',
+        streamIRecId:'1IdjadhN5kwyfAUbDOXcliY-TuANbL2GS'
     },
     {
         name: artistName.getty,
         time: '2:25~2:55',
-        tracklistId: '',
+        tracklistId: '1o_WPKh2d61Y3hbXqJ8vk1qG771biGoMv',
         recordingId: '1arJ10adg621pT9ZHOnuncAuMEoFJvziN',
+        streamIRecId:'1I3PXSzQ0XAOS5bJ9m-DHiC8UbeKda1iE'
     }
 ];
 
