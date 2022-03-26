@@ -8,11 +8,6 @@ import styles from './index.module.css';
 const Index = ({
     match
 }) => {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [inputPassword, setInputPassword] = useState();
-    const [targetLinkid, setTargetLinkid] = useState();
-    const [passed, setPassed] = useState(false);
-    const [alertVisible, setAlertVisible] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -26,29 +21,7 @@ const Index = ({
     }, [match]);
 
     const onLinkClick = useCallback((linkId) => {
-        if (targetEventData.id === '2020' || passed) {
-            window.open(`https://drive.google.com/file/d/${linkId}/view?usp=sharing`);
-        } else {
-            setModalOpen(true);
-            setTargetLinkid(linkId);
-        }
-    }, [passed, targetEventData]);
-
-    const onPasswordEnter = useCallback(() => {
-        setAlertVisible(false);
-        if (String(inputPassword) === "5163") {
-            window.open(`https://drive.google.com/file/d/${targetLinkid}/view?usp=sharing`);
-            setModalOpen(false);
-            setPassed(true);
-        } else {
-            setAlertVisible(true);
-        }
-    }, [targetLinkid, inputPassword]);
-
-    const handleModalCancel = useCallback(() => {
-        setAlertVisible(false);
-        setInputPassword();
-        setModalOpen(false);
+        window.open(`https://drive.google.com/file/d/${linkId}/view?usp=sharing`);
     }, []);
 
     const actions = useCallback((data) => {
@@ -124,30 +97,6 @@ const Index = ({
                     </Col>
                 </Row>
             </Card>
-            <Modal
-                title="ひみつのパスワード"
-                visible={modalOpen}
-                onCancel={handleModalCancel}
-                footer={
-                    <Button onClick={onPasswordEnter}>OK</Button>
-                }
-            >
-                <Input
-                    value={inputPassword}
-                    onChange={(e) => { setInputPassword(e.target.value) }}
-                    onPressEnter={onPasswordEnter}
-                />
-                {alertVisible
-                    && (
-                        <Alert
-                            message="エラー！"
-                            description="パスワードが違います"
-                            type="error"
-                            showIcon
-                            style={{ marginTop: '12px' }}
-                        />
-                    )}
-            </Modal>
         </BasicLayout>
     );
 };

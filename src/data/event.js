@@ -1,9 +1,14 @@
 export const nextEvent = {
-    id: '2020',
-    title: '八王子別天地',
-    description: '2020.09.12 @Twitch'
+    id: '2022',
+    title: '爆盛美食大会',
+    description: '2022.03.20 @八王子Gluck'
 };
 export const pastEventList = [
+    {
+        id: '2022',
+        title: '爆盛美食大会',
+        description: '2022.03.20 @八王子Gluck'
+    },
     {
         id: '2020',
         title: '八王子別天地',
