@@ -1,5 +1,5 @@
-import React, { useMemo, useEffect, useState, useCallback } from 'react';
-import { Card, Row, Col, List, Modal, Input, Button, Alert } from 'antd';
+import React, { useMemo, useEffect, useCallback } from 'react';
+import { Card, Row, Col, List } from 'antd';
 import BasicLayout from '../../components/layout/BasicLayout';
 import { archiveDataIndex } from '../../data/archive';
 import { pastEventList } from '../../data/event';
@@ -26,21 +26,28 @@ const Index = ({
 
     const actions = useCallback((data) => {
         const actionList = [];
-        if (data.tracklistId !== '') {
+        if (data.tracklistId && data.tracklistId !== '') {
             actionList.push(
                 <a onClick={() => { onLinkClick(data.tracklistId); }}>TrackList</a>
             );
         }
-        if (data.recordingId !== '') {
+        if (data.recordingId && data.recordingId !== '') {
             actionList.push(
                 <a onClick={() => { onLinkClick(data.recordingId); }}>
-                    {targetEventData.id === '2020' ? 'Video' : 'Recording'}
+                    {'Recording'}
                 </a>
             );
         }
-        if (data.streamIRecId && data.streamIRecId !== '') {
+        if (data.videoId && data.videoId !== '') {
             actionList.push(
-                <a onClick={() => { onLinkClick(data.streamIRecId); }}>
+                <a onClick={() => { onLinkClick(data.videoId); }}>
+                    {'Video'}
+                </a>
+            );
+        }
+        if (data.streamRecId && data.streamRecId !== '') {
+            actionList.push(
+                <a onClick={() => { onLinkClick(data.streamRecId); }}>
                     {'StreamRec'}
                 </a>
             );

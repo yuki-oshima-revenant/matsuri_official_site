@@ -6,54 +6,63 @@ const archive2022 = [
         time: '22:00~22:30',
         tracklistId: '1R9D6ku3UXQ3rC5nDRR6gPdtBGxH7xivd6tEMzfvei8U',
         recordingId: '1N0Vh2X2hh0WOuhTDGBCt1OxywSvrn6Zt',
+        videoId: '1wMv-VYXo0M9-jD3XztQxH8Z6spfjKc7i'
     },
     {
         name: artistName.carpainter,
         time: '22:30~23:00',
         tracklistId: '1oM4GRP82XOvx5KVlZQ3mWvnDj8AlOfkw',
         recordingId: '1e7ClUZQonn-U0e3YkSzwEjKdSiqWEtjS',
+        videoId: '1aQa8mt0Cxil2SycOpL9pPJHjnv1CZLyu'
     },
     {
         name: artistName.tyaposon,
         time: '23:00~0:00',
         tracklistId: '1DewmTYhRkiyOqoR1Oi1stw31as5aSEZh',
-        recordingId: '1U7cGB8oziOmop06FNENu4OWV4IvFmURI',
+        recordingId: '18mamXhEP1MP4mcqSP14HIpukYDVKakhD',
+        videoId: '14vzFGe7-xJFNY6V-k7O61RZQxI7ijt1k'
     },
     {
         name: artistName.getty,
         time: '0:00~0:30',
-        tracklistId: '',
-        recordingId: '1bvQpUglyrYIUp0ryW6YfjxqsoBbWPKci',
+        tracklistId: '1Gx0yOWNMC-NXwpOlLo_7ExOa_TYPBCdm',
+        recordingId: '1CSJaq-w9nk3THJtEr2criYow0FXZPgtY',
+        videoId: '1iP_N82O0OZS7RyJ3FphDsoUUbIYbcWOM'
     },
     {
         name: artistName.isagen,
         time: '0:30~1:20',
         tracklistId: '105CSR2yTC17pn6P3FbwwnRywNrf-XbmH',
         recordingId: '1PuzKHoos5n6GbsoPjASlqdCvBCrZOECn',
+        videoId: '1nWBK6z-GgpIqYVXjjPwkT5nC5z_Nq5yC'
     },
     {
         name: artistName.carpainter,
         time: '1:20~1:50',
         tracklistId: '10YE9j2uhtPwQuruz5eQo5Kz13sFgNLYQ',
         recordingId: '1A6PAmpUE_CjSL0KB1y4EAuphDW8bBmgg',
+        videoId: '1DeaRu-QFXKGScd9b3TmgNKlPBqNIMIHk'
     },
     {
         name: artistName.getty,
         time: '1:50~2:20',
-        tracklistId: '',
+        tracklistId: '1ae55t-i1WadKQzXqp3rpkjti1b6OZ620',
         recordingId: '1hPNtlJnCEY8bHw67jfDE9mzlKnmlNEfj',
+        videoId: '1JwrlyqCPqP0Sk7OdJqTSFYfXC1a0zuzu'
     },
     {
         name: artistName.revenant,
         time: '2:20~2:50',
         tracklistId: '1uYPmLfa0aNwGsBuNaXORn3y3Sp1GAylhskRiB1LdaIc',
         recordingId: '1NmBDxFr6xu9A7ltViQ9JtxGAij2NaN4b',
+        videoId: '10L0T3VwvfFJegom4SEuWRl3CRflks86p'
     },
     {
         name: artistName.kamisory,
         time: '2:50~3:40',
         tracklistId: '1z43QEwGnBRmnUdSlqMuKPThsQMWM0w8_',
         recordingId: '1vojOvPK5VmxpcDXzHtxp0j1LSH0ixJuY',
+        videoId: '1UnOHj6Rauoj7-0_2Cv8EFSQ5PzH5KA_s'
     },
     {
         name: artistName.free,
@@ -68,64 +77,64 @@ const archive2020 = [
         name: artistName.tyaposon,
         time: '21:00~21:30',
         tracklistId: '15O6cpiPpOG1mRamcuUPl3RWwARiTFeGY',
-        recordingId: '18tN7apC3TbI1UQ4jIaZkwNTBQQeazVUT',
-        streamIRecId: '1wCp1Utjka6WM3F23mPUuNQbzKeQAa2tt'
+        videoId: '18tN7apC3TbI1UQ4jIaZkwNTBQQeazVUT',
+        streamRecId: '1wCp1Utjka6WM3F23mPUuNQbzKeQAa2tt'
     },
     {
         name: artistName.getty,
         time: '21:35~22:05',
         tracklistId: '1GolqJo6ypD2dr5V8Ia08bTiybXTfPTCO',
-        recordingId: '1WVdc7fz1P1VFifTru0TW7mYUyW4f-dOE',
-        streamIRecId: '1Lo3tosesEF7lbFnMFRSpqSYbAXRRBVkq'
+        videoId: '1WVdc7fz1P1VFifTru0TW7mYUyW4f-dOE',
+        streamRecId: '1Lo3tosesEF7lbFnMFRSpqSYbAXRRBVkq'
     },
     {
         name: artistName.kamisory,
         time: '22:10~22:55',
         tracklistId: '147kkfczN9X6IOXgFSw9hgN9VdQCu0hXK',
-        recordingId: '121W6sfSfgLCwZBcjKzPK3I5H8SdmsAeu',
-        streamIRecId: '1KX2zJQrRxt_ugVqXXPMLoPKPHCpv9ue6'
+        videoId: '121W6sfSfgLCwZBcjKzPK3I5H8SdmsAeu',
+        streamRecId: '1KX2zJQrRxt_ugVqXXPMLoPKPHCpv9ue6'
     },
     {
         name: artistName.isagen,
         time: '23:00~23:25',
         tracklistId: '1Vi6LzL0kD3cgY3b9F9h9et4X6PrBcZIh',
-        recordingId: '1M-sjqXYYVCEIkTUKpTpHIi3eGnWFSfPH',
-        streamIRecId: '1AVAM9M5cTxuQDHLY8WCQxiCEm2w_OASM'
+        videoId: '1M-sjqXYYVCEIkTUKpTpHIi3eGnWFSfPH',
+        streamRecId: '1AVAM9M5cTxuQDHLY8WCQxiCEm2w_OASM'
     },
     {
         name: artistName.revenant,
         time: '23:30~0:15',
         tracklistId: '10UNUtzqzC6KQTWOpYCor9yAfN8sbZBE7L68YtWsbgMc',
-        recordingId: '1vvG0hyuZeDw1wV4JSYeSxWovACx1AZpF',
-        streamIRecId: '1asLU3hnUMZzkHWePr6aj6QLNq0t-dkqu'
+        videoId: '1vvG0hyuZeDw1wV4JSYeSxWovACx1AZpF',
+        streamRecId: '1asLU3hnUMZzkHWePr6aj6QLNq0t-dkqu'
     },
     {
         name: artistName.carpainter,
         time: '0:20~1:05',
         tracklistId: '1hHCDpM3nHFZF1y2seoEbaMmcmwmMqpYz',
-        recordingId: '1osbx3XmjFqJhuAxoeciDRJaSJzg6Jcxf',
-        streamIRecId: '1OTT4DJtO6zvabed_wGEv6itt9rz6Qs8G'
+        videoId: '1osbx3XmjFqJhuAxoeciDRJaSJzg6Jcxf',
+        streamRecId: '1OTT4DJtO6zvabed_wGEv6itt9rz6Qs8G'
     },
     {
         name: artistName.isagen,
         time: '1:10~1:45',
         tracklistId: '1fZiCBsz_chAAmwQ-Eu8K8KUKhaqpFSQJ',
-        recordingId: '18zRuC0vjDVqenotb3YkIH8JVzXd1Du0f',
-        streamIRecId: '1sRYB-M1429sB1aNXlCE45Uoed-N9BLUG'
+        videoId: '18zRuC0vjDVqenotb3YkIH8JVzXd1Du0f',
+        streamRecId: '1sRYB-M1429sB1aNXlCE45Uoed-N9BLUG'
     },
     {
         name: artistName.tyaposon,
         time: '1:50~2:20',
         tracklistId: '1Nm6Y9Q2BnKdz-P42McUAMGY78DOIOCgk',
-        recordingId: '1pXPSqRPnGIGkOMmkFtGveaqiWruXzquF',
-        streamIRecId: '1IdjadhN5kwyfAUbDOXcliY-TuANbL2GS'
+        videoId: '1pXPSqRPnGIGkOMmkFtGveaqiWruXzquF',
+        streamRecId: '1IdjadhN5kwyfAUbDOXcliY-TuANbL2GS'
     },
     {
         name: artistName.getty,
         time: '2:25~2:55',
         tracklistId: '1o_WPKh2d61Y3hbXqJ8vk1qG771biGoMv',
-        recordingId: '1arJ10adg621pT9ZHOnuncAuMEoFJvziN',
-        streamIRecId: '1I3PXSzQ0XAOS5bJ9m-DHiC8UbeKda1iE'
+        videoId: '1arJ10adg621pT9ZHOnuncAuMEoFJvziN',
+        streamRecId: '1I3PXSzQ0XAOS5bJ9m-DHiC8UbeKda1iE'
     }
 ];
 
