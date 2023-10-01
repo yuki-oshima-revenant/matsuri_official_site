@@ -1,52 +1,68 @@
-import React, { useEffect } from 'react';
-import { Row, Col, Card } from 'antd';
-
+import React, { useEffect, useMemo } from 'react';
+import { Card, Row, Col, List } from 'antd';
 import BasicLayout from '../../components/layout/BasicLayout';
 import styles from './index.module.css';
+import { events, timetables } from '../../data/event';
 
-export default () => {
+const Index = ({
+    match
+}) => {
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    const parent = process.env.NODE_ENV === 'development' ? 'localhost' : 'matsuri.unronritaro.net';
+    const targetEventData = useMemo(() => {
+        return events[match.params.id];
+    }, [match]);
+
     return (
         <BasicLayout>
             <Card
-                style={{ marginTop: 32, marginBottom: 32, marginRight: 16, marginLeft: 16, backgroundColor: 'black', color: 'white' }}
+                style={{ marginTop: 32, marginRight: 16, marginLeft: 16, backgroundColor: 'black', color: 'white' }}
                 bordered={false}
                 title={
                     <div className={styles.title}>
-                        八王子別天地
+                        {targetEventData.title}
                     </div>
                 }
             >
-                <Row gutter={[16, 0]}>
-                    <Col xs={24} sm={18}>
-                        <div className={styles.iframeContainerMovie}>
-                            <iframe
-                                title="twitch_movie"
-                                src={`https://player.twitch.tv/?channel=matsuri_hachioji&parent=${parent}&autoplay=false`}
-                                frameborder="0"
-                                allowfullscreen="true"
-                                scrolling="no"
-                                style={{ position: 'relative', height: '100%', width: '100%' }}
-                            />
-                        </div>
+                <Row type="flex" gutter={[24, 24]}>
+                    <Col xs={24} lg={16} xl={16}>
+                        <Row gutter={[0, 24]}>
+                            <Col span={24}>
+                                <div className={styles.description}>
+                                    {targetEventData.description}
+                                </div>
+                            </Col>
+                            <Col span={24}>
+                                <img
+                                    src={`${process.env.PUBLIC_URL}/flier/${targetEventData.id}.png`}
+                                    alt="event_image"
+                                    style={{ width: '100%' }} />
+                            </Col>
+                        </Row>
                     </Col>
-                    <Col xs={24} sm={6}>
-                        <div className={styles.iframeContainerChat}>
-                            <iframe
-                                title="twitch_chat"
-                                id="chat_embed"
-                                src={`https://www.twitch.tv/embed/matsuri_hachioji/chat?parent=${parent}`}
-                                style={{ position: 'relative', height: '100%', width: '100%' }}
-                            />
+                    <Col xs={24} lg={8} xl={8}>
+                        <div className="timetable">
+                            <List
+                                itemLayout="horizontal"
+                            >
+                                {timetables[match.params.id].map((data, index) => (
+                                    <List.Item key={index} >
+                                        <List.Item.Meta
+                                            title={data.name}
+                                            description={data.time}
+                                        />
+                                    </List.Item>
+                                ))}
+                            </List>
                         </div>
                     </Col>
                 </Row>
             </Card>
-
         </BasicLayout>
     );
 };
+
+export default Index;

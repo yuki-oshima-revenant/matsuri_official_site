@@ -3,7 +3,7 @@ import { Card, Carousel, Row, Col } from 'antd';
 import BasicLayout from '../../components/layout/BasicLayout';
 import FlierCard from '../../components/card/FlierCard';
 import CategoryCard from '../../components/card/CategoryCard';
-import { nextEvent, pastEventList, dekamoriList } from '../../data/event';
+import { pastEventList, dekamoriList, events } from '../../data/event';
 import styles from './index.module.css';
 
 const Index = ({
@@ -14,12 +14,12 @@ const Index = ({
             <div className={styles.centeredText}>
                 <div>
                     僕の<span className={styles.emphasis}>最弱</span>を以て、
-                            </div>
+                </div>
                 <div>
                     君の<span className={styles.emphasis}>最強</span>を打ち破る——。
-                            </div>
+                </div>
             </div>
-        )
+        );
     }, []);
 
     return (
@@ -59,7 +59,7 @@ const Index = ({
                 style={{ marginRight: 16, marginLeft: 16, backgroundColor: 'black', color: 'white' }}
                 bordered={false}
             >
-                {/* <div id="next">
+                <div id="next">
                     <Row gutter={[24, 24]}>
                         <Col>
                             <CategoryCard
@@ -70,14 +70,14 @@ const Index = ({
                                         <FlierCard
                                             category="flier"
                                             type="next"
-                                            eventInfo={nextEvent}
+                                            eventInfo={events[2023]}
                                         />
                                     </Col>
                                 </Row>
                             </CategoryCard>
                         </Col>
                     </Row>
-                </div> */}
+                </div>
                 <div id="past">
                     <Row>
                         <Col>

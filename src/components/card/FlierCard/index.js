@@ -7,7 +7,7 @@ const { Meta } = Card;
 
 const Index = ({
     category,
-    type="archive",
+    type = "archive",
     eventInfo,
     history
 }) => {
@@ -22,8 +22,8 @@ const Index = ({
                 // 暫定
                 if (pastEventList.find((event) => (event.id === id))) {
                     history.push(`/archive/${id}`);
-                }else if(type === 'next'){
-                    history.push("/event");
+                } else if (type === 'next') {
+                    history.push(`/event/${id}`);
                 }
             }}
         >
@@ -39,7 +39,7 @@ const Index = ({
                     </div>
                 } />
         </Card>
-    )
+    );
 };
 
 export default withRouter(Index);

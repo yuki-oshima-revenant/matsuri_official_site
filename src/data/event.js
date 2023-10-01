@@ -1,8 +1,68 @@
-export const nextEvent = {
-    id: '2022',
-    title: '爆盛美食大会',
-    description: '2022.03.20 @八王子Gluck'
+import artistName from '../enums/artist';
+
+export const events = {
+    2023: {
+        id: '2023',
+        title: '虹色弾丸祭',
+        description: '2023.10.14 @八王子Gluck'
+    }
 };
+
+
+export const timetables = {
+    2023: [
+        {
+            name: artistName.getty,
+            time: '22:00~22:30 '
+        },
+        {
+            name: artistName.kamisory,
+            time: '22:30~23:00 '
+        },
+        {
+            name: artistName.isagen,
+            time: '23:00~23:30 '
+        },
+        {
+            name: artistName.revenant,
+            time: '23:30~0:00 '
+        },
+        {
+            name: artistName.tyaposon,
+            time: '0:00~0:30 '
+        },
+        {
+            name: artistName.carpainter,
+            time: '0:30~1:10 '
+        },
+        {
+            name: artistName.kamisory,
+            time: '1:10~1:50 '
+        },
+        {
+            name: artistName.tyaposon,
+            time: '1:50~2:30 '
+        },
+        {
+            name: artistName.isagen,
+            time: '2:30~3:10 '
+        },
+        {
+            name: artistName.revenant,
+            time: '3:10~3:50 '
+        },
+        {
+            name: artistName.getty,
+            time: '3:50~4:30 '
+        },
+        {
+            name: artistName.carpainter,
+            time: '4:30~5:00 '
+        }
+    ]
+};
+
+
 export const pastEventList = [
     {
         id: '2022',
