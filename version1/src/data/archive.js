@@ -46,7 +46,7 @@ const archive2023 = [
     {
         name: artistName.kamisory,
         time: '1:20~2:00',
-        tracklistId: '1DDV7_mm6WCrjzgJC5MaD-kxn1JvBOhNJ',
+        tracklistId: '1ZkEsaSu_-eyzYm5zpq8GQ8uQW6M-YyC_',
         recordingId: '1VsgdQLEmXPutOwg3eoUBosLP29EKP_c4',
         videoId: '1dBFW6deFavkIi_avcFm-G2gRDZkunOs8',
     },
