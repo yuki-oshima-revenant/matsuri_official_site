@@ -59,7 +59,7 @@ const Index = ({
                 style={{ marginRight: 16, marginLeft: 16, backgroundColor: 'black', color: 'white' }}
                 bordered={false}
             >
-                <div id="next">
+                {/* <div id="next">
                     <Row gutter={[24, 24]}>
                         <Col>
                             <CategoryCard
@@ -77,7 +77,7 @@ const Index = ({
                             </CategoryCard>
                         </Col>
                     </Row>
-                </div>
+                </div> */}
                 <div id="past">
                     <Row>
                         <Col>

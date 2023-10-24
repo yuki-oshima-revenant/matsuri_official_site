@@ -65,6 +65,11 @@ export const timetables = {
 
 export const pastEventList = [
     {
+        id: '2023',
+        title: '虹色弾丸祭',
+        description: '2023.10.14 @八王子Gluck'
+    },
+    {
         id: '2022',
         title: '爆盛美食大会',
         description: '2022.03.20 @八王子Gluck'
