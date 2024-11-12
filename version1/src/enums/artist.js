@@ -6,5 +6,6 @@ export default {
     isagen: "ixxxxx",
     kamisory: "Kamisory",
     neuromancer: "ニューロマンサー",
-    free: 'Free'
+    free: "Free",
+    interlude: "Interlude",
 };
