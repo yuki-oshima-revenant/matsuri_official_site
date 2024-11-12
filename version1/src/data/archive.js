@@ -4,7 +4,7 @@ const archive2024 = [
     {
         name: artistName.kamisory,
         time: "23:00~23:30",
-        tracklistId: "",
+        tracklistId: "1V84E175P9zOqTC-nexqTH49WetH-XZ23",
         recordingId: "1OGkPg-Na5bioeGg7DGFAkQgsOcYjNYdq",
         videoId: "1Ra5a-eg2-EJ1kBdda4Twp4WPP3o0dBwz",
     },
@@ -46,7 +46,7 @@ const archive2024 = [
     {
         name: artistName.kamisory,
         time: "2:05~2:35",
-        tracklistId: "",
+        tracklistId: "1FtN6vsvOA1PC6Nk8xfD9rIy-LX3F905B",
         recordingId: "11honFmzBm3yLohTT9Q5eW7_WkLvibniM",
         videoId: "1RFtzApXn2aeJtngCOMM8J2ztDX5TOaeM",
     },
