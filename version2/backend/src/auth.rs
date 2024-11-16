@@ -11,6 +11,7 @@ use tracing::error;
 use url::Url;
 
 use crate::{
+    dynamodb::DynamodbProcesser,
     google::{format_auth_request_url, get_google_oauth_token, get_google_user_info},
     session::{get_user_info_from_session, User, SESSION_USER_KEY},
     EnvironmentVariables,
@@ -116,6 +117,20 @@ async fn redirect_handler(session: Session, Query(params): Query<OauthCallbackPa
             return StatusCode::INTERNAL_SERVER_ERROR.into_response();
         }
     };
+    let dynamodb_processer = DynamodbProcesser::new().await;
+    match dynamodb_processer
+        .is_registered_user(&user_info_response)
+        .await
+    {
+        Ok(true) => (),
+        Ok(false) => {
+            return StatusCode::UNAUTHORIZED.into_response();
+        }
+        Err(error) => {
+            error!("failed to check registered user {:?}", error);
+            return StatusCode::INTERNAL_SERVER_ERROR.into_response();
+        }
+    }
     match session
         .insert(
             SESSION_USER_KEY,

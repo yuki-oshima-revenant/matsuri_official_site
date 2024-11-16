@@ -1,5 +1,8 @@
 pub mod auth;
+mod dynamodb;
+pub mod event;
 mod google;
+pub mod performance;
 mod session;
 
 use std::{

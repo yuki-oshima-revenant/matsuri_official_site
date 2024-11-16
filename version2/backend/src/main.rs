@@ -1,13 +1,9 @@
-use axum::{routing::get, Json, Router};
+use axum::Router;
 use lambda_http::tower::ServiceBuilder;
-use matsuri_official_site_backend::auth;
+use matsuri_official_site_backend::{auth, event, performance};
 use std::env::set_var;
 use time::Duration;
 use tower_sessions::{Expiry, MemoryStore, SessionManagerLayer};
-
-async fn root() -> Json<serde_json::Value> {
-    Json(serde_json::json!({ "msg": "I am GET /" }))
-}
 
 #[tokio::main]
 async fn main() -> Result<(), lambda_http::Error> {
@@ -24,8 +20,9 @@ async fn main() -> Result<(), lambda_http::Error> {
     );
 
     let app = Router::new()
-        .route("/", get(root))
         .nest("/auth", auth::api_auth_router())
+        .nest("/event", event::api_event_router())
+        .nest("/performance", performance::api_performance_router())
         .layer(session_service);
 
     if cfg!(debug_assertions) {

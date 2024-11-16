@@ -10,11 +10,25 @@
 -   Axum + Lambdaで実装できる
     -   サンプル: https://github.com/awslabs/aws-lambda-rust-runtime/blob/main/examples/http-axum/src/main.rs
 -   エンドポイント
-    -   auth/checklogin
-    -   auth/login
-    -   auth/redirect
-    -   archive/list
-    -   media/get
+    -   auth
+        -   checklogin
+        -   login
+        -   redirect
+    -   event
+        -   get
+        -   list
+    -   performance
+        -   get
+        -   list_in_event
+        -   list
+    -   media
+        -   get
+
+### DynamoDBテーブル
+
+-   matsuri-official-site_user
+-   matsuri-official-site_event
+-   matsuri-official-site_performance
 
 ## WebSocket
 
