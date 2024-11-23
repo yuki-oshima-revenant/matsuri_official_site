@@ -18,6 +18,7 @@ pub fn api_event_router() -> Router {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct GetEventRequest {
     event_id: String,
 }
@@ -63,13 +64,14 @@ async fn list_handler(session: Session) -> Response {
         }
     };
     let dynamodb_processer = DynamodbProcesser::new().await;
-    let events = match dynamodb_processer.list_events().await {
+    let mut events = match dynamodb_processer.list_events().await {
         Ok(events) => events,
         Err(error) => {
             error!("failed to get event {:?}", error);
             return StatusCode::INTERNAL_SERVER_ERROR.into_response();
         }
     };
+    events.sort_by(|a, b| b.get_date().cmp(&a.get_date()));
     let response_body = match serde_json::to_string(&events) {
         Ok(response_body) => response_body,
         Err(error) => {

@@ -46,6 +46,7 @@ fn get_map_list_from_attribute_value_map<'a>(
 }
 
 #[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct RegisteredUser {
     pub email: String,
 }
@@ -59,11 +60,18 @@ impl TryFrom<HashMap<String, AttributeValue>> for RegisteredUser {
 }
 
 #[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Event {
     event_id: String,
     date: i64,
     place: String,
     title: String,
+}
+
+impl Event {
+    pub fn get_date(&self) -> i64 {
+        self.date
+    }
 }
 
 impl TryFrom<HashMap<String, AttributeValue>> for Event {
@@ -83,12 +91,14 @@ impl TryFrom<HashMap<String, AttributeValue>> for Event {
 }
 
 #[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Track {
     artist: String,
     title: String,
 }
 
 #[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Performance {
     event_id: String,
     performance_order: i64,
@@ -96,6 +106,12 @@ pub struct Performance {
     start_time: i64,
     end_time: i64,
     track_list: Vec<Track>,
+}
+
+impl Performance {
+    pub fn get_performance_order(&self) -> i64 {
+        self.performance_order
+    }
 }
 
 impl TryFrom<HashMap<String, AttributeValue>> for Performance {

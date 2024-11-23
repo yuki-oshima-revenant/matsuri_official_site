@@ -19,6 +19,7 @@ pub fn api_performance_router() -> Router {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct GetPerformanceRequest {
     event_id: String,
     performance_order: u32,
@@ -64,6 +65,7 @@ async fn get_handler(
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct ListInEventPerformanceRequest {
     event_id: String,
 }
@@ -79,13 +81,14 @@ async fn list_in_event_handler(
         }
     };
     let dynamodb_processer = DynamodbProcesser::new().await;
-    let performances = match dynamodb_processer.list_event_performances(&event_id).await {
+    let mut performances = match dynamodb_processer.list_event_performances(&event_id).await {
         Ok(performances) => performances,
         Err(error) => {
             error!("failed to get performances {:?}", error);
             return StatusCode::INTERNAL_SERVER_ERROR.into_response();
         }
     };
+    performances.sort_by(|a, b| a.get_performance_order().cmp(&b.get_performance_order()));
     let response_body = match serde_json::to_string(&performances) {
         Ok(response_body) => response_body,
         Err(error) => {
@@ -109,13 +112,14 @@ async fn list_handler(session: Session) -> Response {
         }
     };
     let dynamodb_processer = DynamodbProcesser::new().await;
-    let performances = match dynamodb_processer.list_performances().await {
+    let mut performances = match dynamodb_processer.list_performances().await {
         Ok(performances) => performances,
         Err(error) => {
             error!("failed to get performances {:?}", error);
             return StatusCode::INTERNAL_SERVER_ERROR.into_response();
         }
     };
+    performances.sort_by(|a, b| a.get_performance_order().cmp(&b.get_performance_order()));
     let response_body = match serde_json::to_string(&performances) {
         Ok(response_body) => response_body,
         Err(error) => {

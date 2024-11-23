@@ -36,6 +36,7 @@ impl MediaFormat {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct GetUrlRequest {
     event_id: String,
     performance_order: u32,
@@ -43,6 +44,7 @@ struct GetUrlRequest {
 }
 
 #[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
 struct GetUrlResponse {
     url: String,
 }
