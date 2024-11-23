@@ -9,6 +9,13 @@
 
 -   Axum + Lambdaで実装できる
     -   サンプル: https://github.com/awslabs/aws-lambda-rust-runtime/blob/main/examples/http-axum/src/main.rs
+-   動画/音声を認証しながら配信するためにCloudFront + S3 Pre-signed URLを利用する
+
+    -   https://dev.classmethod.jp/articles/cf-s3-deliveries-use-signurl/
+    -   https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-urls.html
+
+    -   CloudFrontの無料枠を超える利用がある場合は従来のGoogle Driveリンクに切り替える
+
 -   エンドポイント
     -   auth
         -   checklogin
@@ -22,7 +29,7 @@
         -   list_in_event
         -   list
     -   media
-        -   get
+        -   get_url
 
 ### DynamoDBテーブル
 

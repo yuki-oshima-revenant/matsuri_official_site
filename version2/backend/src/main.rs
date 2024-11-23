@@ -1,6 +1,6 @@
 use axum::Router;
 use lambda_http::tower::ServiceBuilder;
-use matsuri_official_site_backend::{auth, event, performance};
+use matsuri_official_site_backend::{auth, event, media, performance};
 use std::env::set_var;
 use time::Duration;
 use tower_sessions::{Expiry, MemoryStore, SessionManagerLayer};
@@ -23,6 +23,7 @@ async fn main() -> Result<(), lambda_http::Error> {
         .nest("/auth", auth::api_auth_router())
         .nest("/event", event::api_event_router())
         .nest("/performance", performance::api_performance_router())
+        .nest("/media", media::api_media_router())
         .layer(session_service);
 
     if cfg!(debug_assertions) {
