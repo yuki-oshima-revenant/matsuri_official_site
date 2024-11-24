@@ -6,6 +6,11 @@ import {
     performanceMediaUrlAtom,
 } from "../lib/atom";
 import { useAtomValue } from "jotai";
+import {
+    formatPerformanceTime,
+    getPerformanceDurationMinutes,
+} from "../lib/util/date";
+import { Clock, List, Microphone, VideoCamera } from "@phosphor-icons/react";
 
 export const Performance = () => {
     const params = useParams<{ eventid: string; performanceorder: string }>();
@@ -37,17 +42,43 @@ export const Performance = () => {
 
     return (
         <div>
-            <div className="mb-6">
-                <div className="mb-1 text-gray-300">{event.title}</div>
-                <div className="flex gap-2 text-4xl">
-                    <div>{`${performance.performanceOrder}.`}</div>
-                    <div>{performance.performerName}</div>
+            <div className="mb-6 flex gap-2">
+                <div>
+                    <div className="mb-1 text-lg text-gray-300">
+                        {event.title}
+                    </div>
+                    <div className="flex gap-2 text-4xl font-bold">
+                        <div>{`${performance.performanceOrder}.`}</div>
+                        <div>{performance.performerName}</div>
+                    </div>
+                </div>
+
+                <div className="grow" />
+                <div className="text-right flex flex-col gap-1">
+                    <div className="text-lg text-gray-300 h-auto mt-auto">
+                        <div className="flex justify-end gap-1">
+                            <Clock size={18} className="h-auto my-auto" />
+                            {`${getPerformanceDurationMinutes(performance.startTime, performance.endTime)} min`}
+                        </div>
+                    </div>
+                    <div className="text-sm text-gray-300 flex gap-2">
+                        <div>
+                            {formatPerformanceTime(performance.startTime)}
+                        </div>
+                        <div>-</div>
+                        <div>{formatPerformanceTime(performance.endTime)}</div>
+                    </div>
                 </div>
             </div>
             <div className="grid grid-cols-2 gap-6">
                 <div className="flex flex-col gap-6">
                     <div className="border border-gray-700 rounded-lg p-6">
-                        <div className="text-lg mb-6">Audio</div>
+                        <div className="flex gap-2 mb-6">
+                            <Microphone size={20} className="h-auto my-auto" />
+                            <div className="text-xl font-bold h-auto my-auto">
+                                Audio
+                            </div>
+                        </div>
                         <div className="flex">
                             <audio
                                 src={import.meta.env.PROD ? audioUrl.url : ""}
@@ -57,7 +88,12 @@ export const Performance = () => {
                         </div>
                     </div>
                     <div className="border border-gray-700 rounded-lg p-6">
-                        <div className="text-lg mb-6">Video</div>
+                        <div className="flex gap-2 mb-6">
+                            <VideoCamera size={20} className="h-auto my-auto" />
+                            <div className="text-xl font-bold h-auto my-auto">
+                                Video
+                            </div>
+                        </div>
                         <div className="flex">
                             <video
                                 src={import.meta.env.PROD ? videoUrl.url : ""}
@@ -68,7 +104,12 @@ export const Performance = () => {
                     </div>
                 </div>
                 <div className="border border-gray-700 p-6 rounded-lg">
-                    <div className="text-lg mb-5">Track List</div>
+                    <div className="flex gap-2 mb-6">
+                        <List size={20} className="h-auto my-auto" />
+                        <div className="text-xl font-bold h-auto my-auto">
+                            Track List
+                        </div>
+                    </div>
                     <div className="divide-y divide-gray-700">
                         {performance.trackList.map(
                             ({ artist, title }, index) => (

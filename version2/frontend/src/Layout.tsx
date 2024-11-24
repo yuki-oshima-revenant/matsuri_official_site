@@ -1,7 +1,19 @@
 import { Outlet } from "react-router";
 import { Suspense } from "react";
+import { CircleNotch } from "@phosphor-icons/react";
 
 const headerHeight = 80;
+
+const Loading = () => {
+    return (
+        <div className="flex justify-center h-96">
+            <CircleNotch
+                size={40}
+                className="animate-spin text-gray-500 h-auto my-auto"
+            />
+        </div>
+    );
+};
 
 export const Layout = () => {
     return (
@@ -17,7 +29,7 @@ export const Layout = () => {
                 </div>
             </header>
             <main className="p-6" style={{ paddingTop: headerHeight + 24 }}>
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<Loading />}>
                     <Outlet />
                 </Suspense>
             </main>

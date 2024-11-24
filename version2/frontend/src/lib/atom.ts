@@ -1,13 +1,7 @@
 import { atom } from "jotai";
 import { atomFamily } from "jotai/utils";
 import deepEqual from "fast-deep-equal";
-
-type Event = {
-    eventId: string;
-    date: string;
-    place: string;
-    title: string;
-};
+import { Event, Performance } from "./type";
 
 // async atomをatomFamilyで作成する際に、比較関数をdeep equalにしないと無限ループが発生する
 // オブジェクト同士の比較ができずに常に再計算されるため
@@ -37,18 +31,6 @@ export const eventListAtom = atom<Promise<Event[]>>(async () => {
     });
     return await response.json();
 });
-
-type Performance = {
-    eventId: string;
-    performanceOrder: number;
-    performerName: string;
-    startTime: string;
-    endTime: string;
-    trackList: {
-        artist: string;
-        title: string;
-    }[];
-};
 
 export const performanceAtom = atomFamily(
     ({

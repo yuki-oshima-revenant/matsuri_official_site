@@ -1,8 +1,13 @@
 import { useParams } from "react-router";
 import { eventAtom, performanceListInEventAtom } from "../lib/atom";
 import { useAtomValue } from "jotai";
-import { MapPinSimple, CalendarBlank } from "@phosphor-icons/react";
+import { MapPinSimple, CalendarBlank, Clock } from "@phosphor-icons/react";
 import { useNavigate } from "react-router";
+import {
+    formatEventDate,
+    formatPerformanceTime,
+    getPerformanceDurationMinutes,
+} from "../lib/util/date";
 
 export const Event = () => {
     const params = useParams<{ eventid: string }>();
@@ -19,14 +24,14 @@ export const Event = () => {
     return (
         <div>
             <div className="flex mb-4">
-                <h2 className="text-4xl h-auto my-auto tracking-tight">
+                <h2 className="text-4xl font-bold h-auto my-auto tracking-tight">
                     {title}
                 </h2>
                 <div className="grow" />
                 <div className="text-sm text-gray-300 flex flex-col gap-1">
                     <div className="flex gap-2">
                         <CalendarBlank size={14} className="h-auto my-auto" />
-                        {date}
+                        {formatEventDate(date)}
                     </div>
                     <div className="flex gap-2">
                         <MapPinSimple size={14} className="h-auto my-auto" />
@@ -57,13 +62,35 @@ export const Event = () => {
                                     <div className="h-auto my-auto text-lg">
                                         {`${performanceOrder}.`}
                                     </div>
-                                    <div className="text-xl font-bold h-auto my-auto">
-                                        {performerName}
+                                    <div className="h-auto my-auto">
+                                        <div className="text-xl font-bold ">
+                                            {performerName}
+                                        </div>
+                                        <div className="text-sm text-gray-300">
+                                            <div className="flex gap-1">
+                                                <Clock
+                                                    size={14}
+                                                    className="h-auto my-auto"
+                                                />
+                                                {`${getPerformanceDurationMinutes(
+                                                    startTime,
+                                                    endTime,
+                                                )} min`}
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="grow" />
-                                    <div className="text-sm text-gray-300 flex flex-col gap-2">
-                                        <div>{startTime}</div>
-                                        <div>{endTime}</div>
+                                    <div>
+                                        <div className="text-sm text-gray-300 flex flex-col gap-1">
+                                            <div>
+                                                {formatPerformanceTime(
+                                                    startTime,
+                                                )}
+                                            </div>
+                                            <div>
+                                                {formatPerformanceTime(endTime)}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
