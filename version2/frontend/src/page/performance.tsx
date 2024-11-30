@@ -32,7 +32,7 @@ const NeedLogin: FunctionComponent<{
 }> = ({ googleDriveFileId }) => {
     return (
         <div className="py-6">
-            <div className="text-center text-sm text-gray-300 mb-4">
+            <div className="text-center text-sm text-zinc-300 mb-4">
                 <div>サイト上で視聴/閲覧するにはログインが必要です。</div>
                 {googleDriveFileId && (
                     <div>
@@ -148,12 +148,12 @@ const TrackListView: FunctionComponent<{
         );
 
     return (
-        <div className="divide-y divide-gray-700">
+        <div className="divide-y divide-zinc-700">
             {performance.trackList.map(({ artist, title }, index) => (
                 <div className="py-4 flex gap-4" key={index}>
                     <div className="h-auto my-auto">{`${index + 1}.`}</div>
                     <div>
-                        <div className="text-sm mb-1 text-gray-300">
+                        <div className="text-sm mb-1 text-zinc-300">
                             {artist}
                         </div>
                         <div>{title}</div>
@@ -171,7 +171,7 @@ const OpenGoogleDriveButton: FunctionComponent<{
 
     return (
         <button
-            className="h-auto my-auto text-gray-300"
+            className="h-auto my-auto text-zinc-300"
             onClick={() => {
                 window.open(
                     `https://drive.google.com/file/d/${id}/view?usp=sharing`,
@@ -209,13 +209,13 @@ export const PerformancePage = () => {
                 </div>
                 <div className="grow" />
                 <div className="text-right flex flex-col gap-1">
-                    <div className="text-lg text-gray-300 h-auto mt-auto">
+                    <div className="text-lg text-zinc-300 h-auto mt-auto">
                         <div className="flex justify-end gap-1">
                             <Clock size={18} className="h-auto my-auto" />
                             {`${getPerformanceDurationMinutes(performance.startTime, performance.endTime)} min`}
                         </div>
                     </div>
-                    <div className="text-sm text-gray-300 flex gap-2">
+                    <div className="text-sm text-zinc-300 flex gap-2">
                         <div>
                             {formatPerformanceTime(performance.startTime)}
                         </div>
@@ -226,7 +226,7 @@ export const PerformancePage = () => {
             </div>
             <div className="grid grid-cols-2 gap-6">
                 <div className="flex flex-col gap-6">
-                    <div className="border border-gray-700 rounded-lg p-6">
+                    <div className="border border-zinc-700 rounded-lg p-6">
                         <div className="flex gap-2 mb-6">
                             <Microphone size={20} className="h-auto my-auto" />
                             <div className="text-xl font-bold h-auto my-auto">
@@ -243,7 +243,7 @@ export const PerformancePage = () => {
                             performance={performance}
                         />
                     </div>
-                    <div className="border border-gray-700 rounded-lg p-6">
+                    <div className="border border-zinc-700 rounded-lg p-6">
                         <div className="flex gap-2 mb-6">
                             <VideoCamera size={20} className="h-auto my-auto" />
                             <div className="text-xl font-bold h-auto my-auto">
@@ -261,7 +261,7 @@ export const PerformancePage = () => {
                         />
                     </div>
                 </div>
-                <div className="border border-gray-700 p-6 rounded-lg">
+                <div className="border border-zinc-700 p-6 rounded-lg">
                     <div className="flex gap-2 mb-6">
                         <List size={20} className="h-auto my-auto" />
                         <div className="text-xl font-bold h-auto my-auto">

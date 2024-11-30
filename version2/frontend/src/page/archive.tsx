@@ -18,13 +18,14 @@ export const ArchivePage = () => {
                         onClick={() => {
                             navigate(`${eventId}`);
                         }}
-                        className="cursor-pointer border border-gray-700 p-6 rounded-lg flex flex-col gap-6 hover:bg-gray-800 duration-200 ease-in-out"
+                        className="cursor-pointer border border-zinc-700 p-6 rounded-lg flex flex-col gap-6 hover:bg-zinc-800 duration-200 ease-in-out"
                     >
                         <div className="text-xl font-bold">{title}</div>
                         <img
                             src={`https://delivery.unronritaro.net/matsuri/image/flyer/${eventId}.png`}
+                            className="aspect-video object-contain"
                         />
-                        <div className="flex gap-4 text-sm text-gray-300">
+                        <div className="flex gap-4 text-sm text-zinc-300">
                             <div className="flex gap-2">
                                 <CalendarBlank
                                     size={14}

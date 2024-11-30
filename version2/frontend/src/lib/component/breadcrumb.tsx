@@ -27,7 +27,7 @@ export const ArchiveBreadcrumb: FunctionComponent<{
 }> = ({ event }) => {
     const navigate = useNavigate();
     return (
-        <div className="flex text-sm text-gray-300">
+        <div className="flex text-sm text-zinc-300">
             <BreadcrumbItem
                 onClick={() => {
                     navigate(Paths.ARCHIVE);
