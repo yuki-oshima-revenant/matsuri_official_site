@@ -31,7 +31,7 @@ const NeedLogin = () => {
                     onClick={() => {
                         const params = new URLSearchParams();
                         params.append("return_to", window.location.href);
-                        window.location.href = `http://localhost:3000/auth/login?${params.toString()}`;
+                        window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/login?${params.toString()}`;
                     }}
                 >
                     <div className="text-sm">ログイン</div>
