@@ -30,6 +30,18 @@ fn get_i64_from_attribute_value_map(
     Ok(value.clone())
 }
 
+fn get_map_from_attribute_value_map<'a>(
+    map: &'a HashMap<String, AttributeValue>,
+    key: &str,
+) -> Result<&'a HashMap<String, AttributeValue>, OpaqueError> {
+    let value = map
+        .get(key)
+        .ok_or(format!("no {}", key))?
+        .as_m()
+        .map_err(|v| format!("invalid {}, {:?}", key, v))?;
+    Ok(value)
+}
+
 fn get_map_list_from_attribute_value_map<'a>(
     map: &'a HashMap<String, AttributeValue>,
     key: &str,
@@ -99,12 +111,21 @@ pub struct Track {
 
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
+pub struct GoogleDrive {
+    tracklist_id: Option<String>,
+    audio_id: Option<String>,
+    video_id: Option<String>,
+}
+
+#[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Performance {
     event_id: String,
     performance_order: i64,
     performer_name: String,
     start_time: i64,
     end_time: i64,
+    google_drive: GoogleDrive,
     track_list: Vec<Track>,
 }
 
@@ -126,6 +147,13 @@ impl TryFrom<HashMap<String, AttributeValue>> for Performance {
         let performer_name = get_string_from_attribute_value_map(&value, "performer_name")?;
         let start_time = get_i64_from_attribute_value_map(&value, "start_time")?;
         let end_time = get_i64_from_attribute_value_map(&value, "end_time")?;
+        let google_drive_ref = get_map_from_attribute_value_map(&value, "google_drive")?;
+        let google_drive = GoogleDrive {
+            tracklist_id: get_string_from_attribute_value_map(google_drive_ref, "tracklist_id")
+                .ok(),
+            audio_id: get_string_from_attribute_value_map(google_drive_ref, "audio_id").ok(),
+            video_id: get_string_from_attribute_value_map(google_drive_ref, "video_id").ok(),
+        };
         let track_list = get_map_list_from_attribute_value_map(&value, "track_list")?
             .iter()
             .map(|track| {
@@ -140,6 +168,7 @@ impl TryFrom<HashMap<String, AttributeValue>> for Performance {
             performer_name,
             start_time,
             end_time,
+            google_drive,
             track_list,
         })
     }

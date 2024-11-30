@@ -22,9 +22,34 @@ import { FunctionComponent } from "react";
 import { loadable } from "jotai/utils";
 import { Performance } from "../lib/type";
 
-const NeedLogin = () => {
+const getGoogleDriveUrl = (id: string) => {
+    return `https://drive.google.com/file/d/${id}/view?usp=sharing`;
+};
+
+const NeedLogin: FunctionComponent<{
+    googleDriveFileId: string | null;
+}> = ({ googleDriveFileId }) => {
     return (
-        <div className="">
+        <div className="py-6">
+            <div className="text-center text-sm text-gray-300 mb-4">
+                <div>サイト上で視聴/閲覧するにはログインが必要です。</div>
+                {googleDriveFileId && (
+                    <div>
+                        アカウントをお持ちでない方は
+                        <a
+                            className="text-blue-500 hover:underline cursor-pointer duration-200 ease-in-out mx-1"
+                            onClick={() => {
+                                window.open(
+                                    getGoogleDriveUrl(googleDriveFileId),
+                                );
+                            }}
+                        >
+                            Google Drive
+                        </a>
+                        からご覧ください。
+                    </div>
+                )}
+            </div>
             <div className="flex justify-center">
                 <button
                     className="flex bg-neutral-700 rounded px-3 py-2"
@@ -44,7 +69,8 @@ const NeedLogin = () => {
 const AudioView: FunctionComponent<{
     eventId: string | null;
     performanceOrder: string | null;
-}> = ({ eventId, performanceOrder }) => {
+    performance: Performance;
+}> = ({ eventId, performanceOrder, performance }) => {
     const isLogin = useAtomValue(isLoginAtom);
 
     const audioUrl = useAtomValue(
@@ -57,7 +83,10 @@ const AudioView: FunctionComponent<{
         ),
     );
 
-    if (!isLogin) return <NeedLogin />;
+    if (!isLogin)
+        return (
+            <NeedLogin googleDriveFileId={performance.googleDrive.audioId} />
+        );
     if (audioUrl.state !== "hasData") return null;
 
     return (
@@ -74,7 +103,8 @@ const AudioView: FunctionComponent<{
 const VideoView: FunctionComponent<{
     eventId: string | null;
     performanceOrder: string | null;
-}> = ({ eventId, performanceOrder }) => {
+    performance: Performance;
+}> = ({ eventId, performanceOrder, performance }) => {
     const isLogin = useAtomValue(isLoginAtom);
 
     const videoUrl = useAtomValue(
@@ -87,7 +117,10 @@ const VideoView: FunctionComponent<{
         ),
     );
 
-    if (!isLogin) return <NeedLogin />;
+    if (!isLogin)
+        return (
+            <NeedLogin googleDriveFileId={performance.googleDrive.videoId} />
+        );
     if (videoUrl.state !== "hasData") return null;
 
     return (
@@ -106,7 +139,12 @@ const TrackListView: FunctionComponent<{
 }> = ({ performance }) => {
     const isLogin = useAtomValue(isLoginAtom);
 
-    if (!isLogin) return <NeedLogin />;
+    if (!isLogin)
+        return (
+            <NeedLogin
+                googleDriveFileId={performance.googleDrive.tracklistId}
+            />
+        );
 
     return (
         <div className="divide-y divide-gray-700">
@@ -125,9 +163,20 @@ const TrackListView: FunctionComponent<{
     );
 };
 
-const OpenGoogleDriveButton = () => {
+const OpenGoogleDriveButton: FunctionComponent<{
+    id: string | null;
+}> = ({ id }) => {
+    if (!id) return null;
+
     return (
-        <button className="h-auto my-auto text-gray-300">
+        <button
+            className="h-auto my-auto text-gray-300"
+            onClick={() => {
+                window.open(
+                    `https://drive.google.com/file/d/${id}/view?usp=sharing`,
+                );
+            }}
+        >
             <GoogleDriveLogo size={20} />
         </button>
     );
@@ -183,11 +232,14 @@ export const PerformancePage = () => {
                                 Audio
                             </div>
                             <div className="grow" />
-                            <OpenGoogleDriveButton />
+                            <OpenGoogleDriveButton
+                                id={performance.googleDrive.audioId}
+                            />
                         </div>
                         <AudioView
                             eventId={params.eventid ?? null}
                             performanceOrder={params.performanceorder ?? null}
+                            performance={performance}
                         />
                     </div>
                     <div className="border border-gray-700 rounded-lg p-6">
@@ -197,11 +249,14 @@ export const PerformancePage = () => {
                                 Video
                             </div>
                             <div className="grow" />
-                            <OpenGoogleDriveButton />
+                            <OpenGoogleDriveButton
+                                id={performance.googleDrive.videoId}
+                            />
                         </div>
                         <VideoView
                             eventId={params.eventid ?? null}
                             performanceOrder={params.performanceorder ?? null}
+                            performance={performance}
                         />
                     </div>
                 </div>
@@ -212,7 +267,9 @@ export const PerformancePage = () => {
                             Track List
                         </div>
                         <div className="grow" />
-                        <OpenGoogleDriveButton />
+                        <OpenGoogleDriveButton
+                            id={performance.googleDrive.tracklistId}
+                        />
                     </div>
                     <TrackListView performance={performance} />
                 </div>

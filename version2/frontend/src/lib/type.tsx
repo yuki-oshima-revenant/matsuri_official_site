@@ -18,6 +18,11 @@ export type Performance = {
     performerName: string;
     startTime: number;
     endTime: number;
+    googleDrive: {
+        tracklistId: string | null;
+        audioId: string | null;
+        videoId: string | null;
+    };
     trackList: {
         artist: string;
         title: string;
