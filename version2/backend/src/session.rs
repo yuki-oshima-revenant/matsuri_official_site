@@ -18,7 +18,7 @@ pub async fn get_user_info_from_session(session: Session) -> Result<User, Opaque
     let user = match session.get::<User>(SESSION_USER_KEY).await? {
         Some(user) => user,
         None => {
-            if cfg!(debug_assertions) {
+            if false {
                 warn!("failed to get user info from session, use dummy user info");
                 return Ok(User {
                     id: "test".to_string(),

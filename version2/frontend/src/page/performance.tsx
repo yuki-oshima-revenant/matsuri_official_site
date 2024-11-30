@@ -1,40 +1,145 @@
 import { useParams } from "react-router";
+import { eventAtom } from "../lib/atom/event";
 import {
-    eventAtom,
     MediaFormat,
     performanceAtom,
     performanceMediaUrlAtom,
-} from "../lib/atom";
+} from "../lib/atom/performance";
 import { useAtomValue } from "jotai";
 import {
     formatPerformanceTime,
     getPerformanceDurationMinutes,
 } from "../lib/util/date";
-import { Clock, List, Microphone, VideoCamera } from "@phosphor-icons/react";
+import {
+    Clock,
+    GoogleDriveLogo,
+    List,
+    Microphone,
+    VideoCamera,
+} from "@phosphor-icons/react";
+import { isLoginAtom } from "../lib/atom/auth";
+import { FunctionComponent } from "react";
+import { loadable } from "jotai/utils";
+import { Performance } from "../lib/type";
 
-export const Performance = () => {
+const NeedLogin = () => {
+    return (
+        <div className="">
+            <div className="flex justify-center">
+                <button
+                    className="flex bg-neutral-700 rounded px-3 py-2"
+                    onClick={() => {
+                        const params = new URLSearchParams();
+                        params.append("return_to", window.location.href);
+                        window.location.href = `http://localhost:3000/auth/login?${params.toString()}`;
+                    }}
+                >
+                    <div className="text-sm">ログイン</div>
+                </button>
+            </div>
+        </div>
+    );
+};
+
+const AudioView: FunctionComponent<{
+    eventId: string | null;
+    performanceOrder: string | null;
+}> = ({ eventId, performanceOrder }) => {
+    const isLogin = useAtomValue(isLoginAtom);
+
+    const audioUrl = useAtomValue(
+        loadable(
+            performanceMediaUrlAtom({
+                eventId: eventId ?? null,
+                performanceOrder: Number(Number(performanceOrder ?? 0)),
+                mediaFormat: MediaFormat.AUDIO,
+            }),
+        ),
+    );
+
+    if (!isLogin) return <NeedLogin />;
+    if (audioUrl.state !== "hasData") return null;
+
+    return (
+        <div className="flex">
+            <audio
+                src={import.meta.env.PROD ? audioUrl.data.url : ""}
+                controls
+                className="grow"
+            />
+        </div>
+    );
+};
+
+const VideoView: FunctionComponent<{
+    eventId: string | null;
+    performanceOrder: string | null;
+}> = ({ eventId, performanceOrder }) => {
+    const isLogin = useAtomValue(isLoginAtom);
+
+    const videoUrl = useAtomValue(
+        loadable(
+            performanceMediaUrlAtom({
+                eventId: eventId ?? null,
+                performanceOrder: Number(performanceOrder ?? 0),
+                mediaFormat: MediaFormat.VIDEO,
+            }),
+        ),
+    );
+
+    if (!isLogin) return <NeedLogin />;
+    if (videoUrl.state !== "hasData") return null;
+
+    return (
+        <div className="flex">
+            <video
+                src={import.meta.env.PROD ? videoUrl.data.url : ""}
+                controls
+                className="grow"
+            />
+        </div>
+    );
+};
+
+const TrackListView: FunctionComponent<{
+    performance: Performance;
+}> = ({ performance }) => {
+    const isLogin = useAtomValue(isLoginAtom);
+
+    if (!isLogin) return <NeedLogin />;
+
+    return (
+        <div className="divide-y divide-gray-700">
+            {performance.trackList.map(({ artist, title }, index) => (
+                <div className="py-4 flex gap-4" key={index}>
+                    <div className="h-auto my-auto">{`${index + 1}.`}</div>
+                    <div>
+                        <div className="text-sm mb-1 text-gray-300">
+                            {artist}
+                        </div>
+                        <div>{title}</div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
+
+const OpenGoogleDriveButton = () => {
+    return (
+        <button className="h-auto my-auto text-gray-300">
+            <GoogleDriveLogo size={20} />
+        </button>
+    );
+};
+
+export const PerformancePage = () => {
     const params = useParams<{ eventid: string; performanceorder: string }>();
     const event = useAtomValue(eventAtom({ eventId: params.eventid ?? null }));
     const performance = useAtomValue(
         performanceAtom({
             eventId: params.eventid ?? null,
             performanceOrder: Number(params.performanceorder ?? 0),
-        }),
-    );
-
-    const audioUrl = useAtomValue(
-        performanceMediaUrlAtom({
-            eventId: params.eventid ?? null,
-            performanceOrder: Number(params.performanceorder ?? 0),
-            mediaFormat: MediaFormat.AUDIO,
-        }),
-    );
-
-    const videoUrl = useAtomValue(
-        performanceMediaUrlAtom({
-            eventId: params.eventid ?? null,
-            performanceOrder: Number(params.performanceorder ?? 0),
-            mediaFormat: MediaFormat.VIDEO,
         }),
     );
 
@@ -52,7 +157,6 @@ export const Performance = () => {
                         <div>{performance.performerName}</div>
                     </div>
                 </div>
-
                 <div className="grow" />
                 <div className="text-right flex flex-col gap-1">
                     <div className="text-lg text-gray-300 h-auto mt-auto">
@@ -78,14 +182,13 @@ export const Performance = () => {
                             <div className="text-xl font-bold h-auto my-auto">
                                 Audio
                             </div>
+                            <div className="grow" />
+                            <OpenGoogleDriveButton />
                         </div>
-                        <div className="flex">
-                            <audio
-                                src={import.meta.env.PROD ? audioUrl.url : ""}
-                                controls
-                                className="grow"
-                            />
-                        </div>
+                        <AudioView
+                            eventId={params.eventid ?? null}
+                            performanceOrder={params.performanceorder ?? null}
+                        />
                     </div>
                     <div className="border border-gray-700 rounded-lg p-6">
                         <div className="flex gap-2 mb-6">
@@ -93,14 +196,13 @@ export const Performance = () => {
                             <div className="text-xl font-bold h-auto my-auto">
                                 Video
                             </div>
+                            <div className="grow" />
+                            <OpenGoogleDriveButton />
                         </div>
-                        <div className="flex">
-                            <video
-                                src={import.meta.env.PROD ? videoUrl.url : ""}
-                                controls
-                                className="grow"
-                            />
-                        </div>
+                        <VideoView
+                            eventId={params.eventid ?? null}
+                            performanceOrder={params.performanceorder ?? null}
+                        />
                     </div>
                 </div>
                 <div className="border border-gray-700 p-6 rounded-lg">
@@ -109,22 +211,10 @@ export const Performance = () => {
                         <div className="text-xl font-bold h-auto my-auto">
                             Track List
                         </div>
+                        <div className="grow" />
+                        <OpenGoogleDriveButton />
                     </div>
-                    <div className="divide-y divide-gray-700">
-                        {performance.trackList.map(
-                            ({ artist, title }, index) => (
-                                <div className="py-4 flex gap-4" key={index}>
-                                    <div className="h-auto my-auto">{`${index + 1}.`}</div>
-                                    <div>
-                                        <div className="text-sm mb-1 text-gray-300">
-                                            {artist}
-                                        </div>
-                                        <div>{title}</div>
-                                    </div>
-                                </div>
-                            ),
-                        )}
-                    </div>
+                    <TrackListView performance={performance} />
                 </div>
             </div>
         </div>

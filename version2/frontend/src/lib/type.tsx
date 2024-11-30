@@ -1,3 +1,10 @@
+export type User = {
+    id: string;
+    name: string;
+    mailaddress: string;
+    picture_url: string;
+};
+
 export type Event = {
     eventId: string;
     date: number;

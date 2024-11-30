@@ -112,6 +112,10 @@ impl Performance {
     pub fn get_performance_order(&self) -> i64 {
         self.performance_order
     }
+
+    pub fn filter_out_track_list(&mut self) {
+        self.track_list = vec![];
+    }
 }
 
 impl TryFrom<HashMap<String, AttributeValue>> for Performance {

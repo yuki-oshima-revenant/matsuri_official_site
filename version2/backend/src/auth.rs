@@ -1,7 +1,7 @@
 use axum::{
     extract::Query,
     response::{IntoResponse, Redirect, Response},
-    routing::get,
+    routing::{get, post},
     Router,
 };
 use reqwest::{header, StatusCode};
@@ -19,7 +19,7 @@ use crate::{
 
 pub fn api_auth_router() -> Router {
     let router = Router::new()
-        .route("/checklogin", get(checklogin_handler))
+        .route("/checklogin", post(checklogin_handler))
         .route("/login", get(login_handler))
         .route("/redirect", get(redirect_handler));
     router

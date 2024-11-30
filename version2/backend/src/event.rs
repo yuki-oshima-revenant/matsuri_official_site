@@ -5,10 +5,9 @@ use axum::{
 };
 use reqwest::{header, StatusCode};
 use serde::Deserialize;
-use tower_sessions::Session;
 use tracing::error;
 
-use crate::{dynamodb::DynamodbProcesser, session::get_user_info_from_session};
+use crate::dynamodb::DynamodbProcesser;
 
 pub fn api_event_router() -> Router {
     let router = Router::new()
@@ -23,16 +22,8 @@ struct GetEventRequest {
     event_id: String,
 }
 
-async fn get_handler(
-    session: Session,
-    Json(GetEventRequest { event_id }): Json<GetEventRequest>,
-) -> Response {
-    match get_user_info_from_session(session).await {
-        Ok(user) => user,
-        Err(_) => {
-            return StatusCode::UNAUTHORIZED.into_response();
-        }
-    };
+// allow no login user
+async fn get_handler(Json(GetEventRequest { event_id }): Json<GetEventRequest>) -> Response {
     let dynamodb_processer = DynamodbProcesser::new().await;
     let event = match dynamodb_processer.get_event(&event_id).await {
         Ok(event) => event,
@@ -56,13 +47,8 @@ async fn get_handler(
         .into_response()
 }
 
-async fn list_handler(session: Session) -> Response {
-    match get_user_info_from_session(session).await {
-        Ok(user) => user,
-        Err(_) => {
-            return StatusCode::UNAUTHORIZED.into_response();
-        }
-    };
+// allow no login user
+async fn list_handler() -> Response {
     let dynamodb_processer = DynamodbProcesser::new().await;
     let mut events = match dynamodb_processer.list_events().await {
         Ok(events) => events,

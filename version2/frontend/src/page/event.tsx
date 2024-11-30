@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
-import { eventAtom, performanceListInEventAtom } from "../lib/atom";
+import { eventAtom } from "../lib/atom/event";
+import { performanceListInEventAtom } from "../lib/atom/performance";
 import { useAtomValue } from "jotai";
 import { MapPinSimple, CalendarBlank, Clock } from "@phosphor-icons/react";
 import { useNavigate } from "react-router";
@@ -9,7 +10,7 @@ import {
     getPerformanceDurationMinutes,
 } from "../lib/util/date";
 
-export const Event = () => {
+export const EventPage = () => {
     const params = useParams<{ eventid: string }>();
     const event = useAtomValue(eventAtom({ eventId: params.eventid ?? null }));
     const performances = useAtomValue(

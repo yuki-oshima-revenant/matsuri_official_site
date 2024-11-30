@@ -1,10 +1,10 @@
 import { useAtomValue } from "jotai";
-import { eventListAtom } from "../lib/atom";
+import { eventListAtom } from "../lib/atom/event";
 import { useNavigate } from "react-router";
 import { MapPinSimple, CalendarBlank } from "@phosphor-icons/react";
 import { formatEventDate } from "../lib/util/date";
 
-export const Home = () => {
+export const HomePage = () => {
     const eventList = useAtomValue(eventListAtom);
     const navigate = useNavigate();
 
