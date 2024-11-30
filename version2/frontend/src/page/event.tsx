@@ -9,6 +9,7 @@ import {
     formatPerformanceTime,
     getPerformanceDurationMinutes,
 } from "../lib/util/date";
+import { ArchiveBreadcrumb } from "../lib/component/breadcrumb";
 
 export const EventPage = () => {
     const params = useParams<{ eventid: string }>();
@@ -24,7 +25,10 @@ export const EventPage = () => {
     const { eventId, title, date, place } = event;
     return (
         <div>
-            <div className="flex mb-4">
+            <div className="mb-2">
+                <ArchiveBreadcrumb event={null} />
+            </div>
+            <div className="flex mb-6">
                 <h2 className="text-4xl font-bold h-auto my-auto tracking-tight">
                     {title}
                 </h2>

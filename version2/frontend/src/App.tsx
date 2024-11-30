@@ -7,6 +7,7 @@ import { PerformancePage } from "./page/performance";
 import { SearchPage } from "./page/search";
 import { DekamoriPage } from "./page/dekamori";
 import { ArchivePage } from "./page/archive";
+import { Paths } from "./lib/util/path";
 
 export const App = () => {
     return (
@@ -14,7 +15,7 @@ export const App = () => {
             <Routes>
                 <Route element={<Layout />}>
                     <Route index element={<HomePage />} />
-                    <Route path="archive">
+                    <Route path={Paths.ARCHIVE}>
                         <Route index element={<ArchivePage />} />
                         <Route path=":eventid" element={<EventPage />} />
                         <Route
@@ -22,8 +23,8 @@ export const App = () => {
                             element={<PerformancePage />}
                         />
                     </Route>
-                    <Route path="/search" element={<SearchPage />} />
-                    <Route path="/dekamori" element={<DekamoriPage />} />
+                    <Route path={Paths.SEARCH} element={<SearchPage />} />
+                    <Route path={Paths.DEKAMORI} element={<DekamoriPage />} />
                 </Route>
             </Routes>
         </BrowserRouter>

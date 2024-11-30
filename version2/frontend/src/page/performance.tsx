@@ -21,6 +21,7 @@ import { isLoginAtom } from "../lib/atom/auth";
 import { FunctionComponent } from "react";
 import { loadable } from "jotai/utils";
 import { Performance } from "../lib/type";
+import { ArchiveBreadcrumb } from "../lib/component/breadcrumb";
 
 const getGoogleDriveUrl = (id: string) => {
     return `https://drive.google.com/file/d/${id}/view?usp=sharing`;
@@ -196,11 +197,11 @@ export const PerformancePage = () => {
 
     return (
         <div>
+            <div className="mb-2">
+                <ArchiveBreadcrumb event={event} />
+            </div>
             <div className="mb-6 flex gap-2">
                 <div>
-                    <div className="mb-1 text-lg text-gray-300">
-                        {event.title}
-                    </div>
                     <div className="flex gap-2 text-4xl font-bold">
                         <div>{`${performance.performanceOrder}.`}</div>
                         <div>{performance.performerName}</div>
