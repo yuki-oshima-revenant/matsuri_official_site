@@ -153,7 +153,7 @@ const TrackListView: FunctionComponent<{
                 <div className="py-4 flex gap-4" key={index}>
                     <div className="h-auto my-auto">{`${index + 1}.`}</div>
                     <div>
-                        <div className="text-sm mb-1 text-zinc-300">
+                        <div className="text-sm mb-1 text-zinc-400">
                             {artist}
                         </div>
                         <div>{title}</div>
@@ -209,13 +209,13 @@ export const PerformancePage = () => {
                 </div>
                 <div className="grow" />
                 <div className="text-right flex flex-col gap-1">
-                    <div className="text-lg text-zinc-300 h-auto mt-auto">
+                    <div className="text-sm text-zinc-400 h-auto mt-auto">
                         <div className="flex justify-end gap-1">
                             <Clock size={18} className="h-auto my-auto" />
                             {`${getPerformanceDurationMinutes(performance.startTime, performance.endTime)} min`}
                         </div>
                     </div>
-                    <div className="text-sm text-zinc-300 flex gap-2">
+                    <div className="text-sm text-zinc-400 flex gap-2">
                         <div>
                             {formatPerformanceTime(performance.startTime)}
                         </div>
@@ -226,7 +226,7 @@ export const PerformancePage = () => {
             </div>
             <div className="grid grid-cols-2 gap-6">
                 <div className="flex flex-col gap-6">
-                    <div className="border border-zinc-700 rounded-lg p-6">
+                    <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6">
                         <div className="flex gap-2 mb-6">
                             <Microphone size={20} className="h-auto my-auto" />
                             <div className="text-xl font-bold h-auto my-auto">
@@ -243,7 +243,7 @@ export const PerformancePage = () => {
                             performance={performance}
                         />
                     </div>
-                    <div className="border border-zinc-700 rounded-lg p-6">
+                    <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6">
                         <div className="flex gap-2 mb-6">
                             <VideoCamera size={20} className="h-auto my-auto" />
                             <div className="text-xl font-bold h-auto my-auto">
@@ -261,7 +261,7 @@ export const PerformancePage = () => {
                         />
                     </div>
                 </div>
-                <div className="border border-zinc-700 p-6 rounded-lg">
+                <div className="border border-zinc-700 bg-zinc-900 p-6 rounded-lg">
                     <div className="flex gap-2 mb-6">
                         <List size={20} className="h-auto my-auto" />
                         <div className="text-xl font-bold h-auto my-auto">

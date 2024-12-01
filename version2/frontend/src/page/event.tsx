@@ -33,7 +33,7 @@ export const EventPage = () => {
                     {title}
                 </h2>
                 <div className="grow" />
-                <div className="text-sm text-zinc-300 flex flex-col gap-1">
+                <div className="text-sm text-zinc-400 flex flex-col gap-1">
                     <div className="flex gap-2">
                         <CalendarBlank size={14} className="h-auto my-auto" />
                         {formatEventDate(date)}
@@ -58,7 +58,7 @@ export const EventPage = () => {
                         }) => (
                             <div
                                 key={performanceOrder}
-                                className="p-6 rounded-lg hover:bg-zinc-800 border border-zinc-700 cursor-pointer duration-200 ease-in-out"
+                                className="p-6 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 cursor-pointer duration-200 ease-in-out"
                                 onClick={() => {
                                     navigate(`${performanceOrder}`);
                                 }}
@@ -71,7 +71,7 @@ export const EventPage = () => {
                                         <div className="text-xl font-bold ">
                                             {performerName}
                                         </div>
-                                        <div className="text-sm text-zinc-300">
+                                        <div className="text-sm text-zinc-400">
                                             <div className="flex gap-1">
                                                 <Clock
                                                     size={14}
@@ -86,7 +86,7 @@ export const EventPage = () => {
                                     </div>
                                     <div className="grow" />
                                     <div>
-                                        <div className="text-sm text-zinc-300 flex flex-col gap-1">
+                                        <div className="text-sm text-zinc-400 flex flex-col gap-1">
                                             <div>
                                                 {formatPerformanceTime(
                                                     startTime,
