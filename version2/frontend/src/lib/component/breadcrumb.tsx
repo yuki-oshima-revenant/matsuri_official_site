@@ -1,11 +1,11 @@
-import { CaretRight } from "@phosphor-icons/react";
+import { PiCaretRight } from "react-icons/pi";
 import { FunctionComponent } from "react";
 import { Event } from "../type";
 import { useNavigate } from "react-router";
 import { Paths } from "../util/path";
 
 const BreadcrumbDivider = () => {
-    return <CaretRight size={14} className="h-auto my-auto mx-1" />;
+    return <PiCaretRight size={14} className="h-auto my-auto mx-1" />;
 };
 
 const BreadcrumbItem: FunctionComponent<{

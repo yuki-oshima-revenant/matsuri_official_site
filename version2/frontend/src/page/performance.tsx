@@ -11,12 +11,12 @@ import {
     getPerformanceDurationMinutes,
 } from "../lib/util/date";
 import {
-    Clock,
-    GoogleDriveLogo,
-    List,
-    Microphone,
-    VideoCamera,
-} from "@phosphor-icons/react";
+    PiClock,
+    PiGoogleDriveLogo,
+    PiList,
+    PiMicrophone,
+    PiVideoCamera,
+} from "react-icons/pi";
 import { isLoginAtom } from "../lib/atom/auth";
 import { FunctionComponent } from "react";
 import { loadable } from "jotai/utils";
@@ -178,7 +178,7 @@ const OpenGoogleDriveButton: FunctionComponent<{
                 );
             }}
         >
-            <GoogleDriveLogo size={20} />
+            <PiGoogleDriveLogo size={20} />
         </button>
     );
 };
@@ -211,7 +211,7 @@ export const PerformancePage = () => {
                 <div className="text-right flex flex-col gap-1">
                     <div className="text-sm text-zinc-400 h-auto mt-auto">
                         <div className="flex justify-end gap-1">
-                            <Clock size={18} className="h-auto my-auto" />
+                            <PiClock size={18} className="h-auto my-auto" />
                             {`${getPerformanceDurationMinutes(performance.startTime, performance.endTime)} min`}
                         </div>
                     </div>
@@ -228,7 +228,10 @@ export const PerformancePage = () => {
                 <div className="flex flex-col gap-6">
                     <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6">
                         <div className="flex gap-2 mb-6">
-                            <Microphone size={20} className="h-auto my-auto" />
+                            <PiMicrophone
+                                size={20}
+                                className="h-auto my-auto"
+                            />
                             <div className="text-xl font-bold h-auto my-auto">
                                 Audio
                             </div>
@@ -245,7 +248,10 @@ export const PerformancePage = () => {
                     </div>
                     <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6">
                         <div className="flex gap-2 mb-6">
-                            <VideoCamera size={20} className="h-auto my-auto" />
+                            <PiVideoCamera
+                                size={20}
+                                className="h-auto my-auto"
+                            />
                             <div className="text-xl font-bold h-auto my-auto">
                                 Video
                             </div>
@@ -263,7 +269,7 @@ export const PerformancePage = () => {
                 </div>
                 <div className="border border-zinc-700 bg-zinc-900 p-6 rounded-lg">
                     <div className="flex gap-2 mb-6">
-                        <List size={20} className="h-auto my-auto" />
+                        <PiList size={20} className="h-auto my-auto" />
                         <div className="text-xl font-bold h-auto my-auto">
                             Track List
                         </div>

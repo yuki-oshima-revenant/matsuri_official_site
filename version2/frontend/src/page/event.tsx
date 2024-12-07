@@ -2,7 +2,7 @@ import { useParams } from "react-router";
 import { eventAtom } from "../lib/atom/event";
 import { performanceListInEventAtom } from "../lib/atom/performance";
 import { useAtomValue } from "jotai";
-import { MapPinSimple, CalendarBlank, Clock } from "@phosphor-icons/react";
+import { PiMapPinSimple, PiCalendarBlank, PiClock } from "react-icons/pi";
 import { useNavigate } from "react-router";
 import {
     formatEventDate,
@@ -35,11 +35,11 @@ export const EventPage = () => {
                 <div className="grow" />
                 <div className="text-sm text-zinc-400 flex flex-col gap-1">
                     <div className="flex gap-2">
-                        <CalendarBlank size={14} className="h-auto my-auto" />
+                        <PiCalendarBlank size={14} className="h-auto my-auto" />
                         {formatEventDate(date)}
                     </div>
                     <div className="flex gap-2">
-                        <MapPinSimple size={14} className="h-auto my-auto" />
+                        <PiMapPinSimple size={14} className="h-auto my-auto" />
                         {place}
                     </div>
                 </div>
@@ -73,7 +73,7 @@ export const EventPage = () => {
                                         </div>
                                         <div className="text-sm text-zinc-400">
                                             <div className="flex gap-1">
-                                                <Clock
+                                                <PiClock
                                                     size={14}
                                                     className="h-auto my-auto"
                                                 />

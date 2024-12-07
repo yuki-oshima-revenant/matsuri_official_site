@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { Event } from "../type";
 import { formatEventDate } from "../util/date";
-import { CalendarBlank, MapPinSimple } from "@phosphor-icons/react";
+import { PiCalendarBlank, PiMapPinSimple } from "react-icons/pi";
 import { useNavigate } from "react-router";
 import { Paths } from "../util/path";
 
@@ -24,11 +24,11 @@ export const EventCard: FunctionComponent<{
             />
             <div className="flex gap-4 text-sm text-zinc-400">
                 <div className="flex gap-2">
-                    <CalendarBlank size={14} className="h-auto my-auto" />
+                    <PiCalendarBlank size={14} className="h-auto my-auto" />
                     {formatEventDate(date)}
                 </div>
                 <div className="flex gap-2">
-                    <MapPinSimple size={14} className="h-auto my-auto" />
+                    <PiMapPinSimple size={14} className="h-auto my-auto" />
                     {place}
                 </div>
             </div>

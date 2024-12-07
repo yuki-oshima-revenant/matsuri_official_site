@@ -1,4 +1,4 @@
-import { HardHat } from "@phosphor-icons/react";
+import { PiHardHat } from "react-icons/pi";
 import { functions, Paths } from "../lib/util/path";
 import { useNavigate } from "react-router";
 import { eventListAtom } from "../lib/atom/event";
@@ -81,7 +81,7 @@ export const HomePage = () => {
                                 {func.underConstruction && (
                                     <div className="text-sm text-zinc-400 flex justify-center mt-2">
                                         <div className="flex mr-1">
-                                            <HardHat
+                                            <PiHardHat
                                                 size={14}
                                                 className="h-auto my-auto"
                                             />

@@ -1,9 +1,10 @@
 import { Outlet } from "react-router";
 import { FunctionComponent, Suspense, useMemo } from "react";
-import { CircleNotch, GithubLogo } from "@phosphor-icons/react";
+import { PiCircleNotch } from "react-icons/pi";
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
 import { Function, functions, Paths } from "./lib/util/path";
+import { FaGithub } from "react-icons/fa6";
 
 const headerHeight = 64;
 const footerHeight = 36;
@@ -11,7 +12,7 @@ const footerHeight = 36;
 const Loading = () => {
     return (
         <div className="flex justify-center h-96">
-            <CircleNotch
+            <PiCircleNotch
                 size={40}
                 className="animate-spin text-zinc-500 h-auto my-auto"
             />
@@ -72,18 +73,14 @@ export const Layout = () => {
                         <div className="grow" />
                         <div className="flex">
                             <button
-                                className="rounded-full bg-zinc-400 h-auto my-auto"
+                                className="rounded-full text-zinc-300 h-auto my-auto"
                                 onClick={() => {
                                     window.open(
                                         "https://github.com/yuki-oshima-revenant/matsuri_official_site/tree/master/version2",
                                     );
                                 }}
                             >
-                                <GithubLogo
-                                    size={20}
-                                    weight="fill"
-                                    className="text-zinc-950"
-                                />
+                                <FaGithub size={24} />
                             </button>
                         </div>
                     </header>

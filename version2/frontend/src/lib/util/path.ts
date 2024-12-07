@@ -1,12 +1,12 @@
+import { IconType } from "react-icons";
 import {
-    BowlFood,
-    ClockCounterClockwise,
-    Icon,
-    MagnifyingGlass,
-    House,
-    HeadCircuit,
-    MonitorPlay,
-} from "@phosphor-icons/react";
+    PiBowlFood,
+    PiClockCounterClockwise,
+    PiMagnifyingGlass,
+    PiHouse,
+    PiHeadCircuit,
+    PiMonitorPlay,
+} from "react-icons/pi";
 
 export enum Paths {
     HOME = "/",
@@ -19,7 +19,7 @@ export enum Paths {
 
 export type Function = {
     path: Paths;
-    icon: Icon;
+    icon: IconType;
     title: string;
     description: string;
     underConstruction: boolean;
@@ -28,14 +28,14 @@ export type Function = {
 export const functions: Function[] = [
     {
         path: Paths.HOME,
-        icon: House,
+        icon: PiHouse,
         title: "ホーム",
         description: "",
         underConstruction: false,
     },
     {
         path: Paths.ARCHIVE,
-        icon: ClockCounterClockwise,
+        icon: PiClockCounterClockwise,
         title: "祭アーカイブ",
         description:
             "過去の祭の一覧を閲覧、動画/音声を再生、トラックリストを確認することができます",
@@ -43,28 +43,28 @@ export const functions: Function[] = [
     },
     {
         path: Paths.SEARCH,
-        icon: MagnifyingGlass,
+        icon: PiMagnifyingGlass,
         title: "祭インデックス",
         description: "祭のトラックリストを検索することができます",
         underConstruction: true,
     },
     {
         path: Paths.WATCHPARTY,
-        icon: MonitorPlay,
+        icon: PiMonitorPlay,
         title: "祭ウォッチパーティ",
         description: "祭の動画/音声を一緒に視聴することができます",
         underConstruction: true,
     },
     {
         path: Paths.AI,
-        icon: HeadCircuit,
+        icon: PiHeadCircuit,
         title: "祭AI",
         description: "祭の知識を備えたAIを利用することができます",
         underConstruction: true,
     },
     {
         path: Paths.DEKAMORI,
-        icon: BowlFood,
+        icon: PiBowlFood,
         title: "デカ盛り美食大会",
         description: "デカ盛り美食大会",
         underConstruction: true,
