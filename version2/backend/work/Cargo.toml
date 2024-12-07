@@ -9,5 +9,7 @@ path = "src/bin/create_performance.rs"
 
 [dependencies]
 tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
 
 matsuri-official-site-common = { path = "../common" }

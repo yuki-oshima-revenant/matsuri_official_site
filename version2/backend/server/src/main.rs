@@ -1,5 +1,6 @@
 use axum::Router;
 use lambda_http::tower::ServiceBuilder;
+use matsuri_official_site_common::load_env_file;
 use matsuri_official_site_server::{auth, event, media, performance};
 use std::env::set_var;
 use time::Duration;
@@ -27,7 +28,7 @@ async fn main() -> Result<(), lambda_http::Error> {
         .layer(session_service);
 
     if cfg!(debug_assertions) {
-        dotenvy::dotenv()?;
+        load_env_file()?;
         let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await?;
         axum::serve(listener, app).await?;
         Ok(())

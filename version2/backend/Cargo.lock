@@ -1458,6 +1458,8 @@ name = "matsuri-official-site-work"
 version = "0.1.0"
 dependencies = [
  "matsuri-official-site-common",
+ "serde",
+ "serde_json",
  "tokio",
 ]
 

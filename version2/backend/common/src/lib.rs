@@ -8,6 +8,18 @@ use std::{
 
 pub type OpaqueError = Box<dyn Error + Send + Sync + 'static>;
 
+pub fn load_env_file() -> Result<(), OpaqueError> {
+    let mut env_file_path = env::current_dir()?.join(".env");
+    for ancestor in env::current_exe()?.ancestors() {
+        if ancestor.ends_with("backend") {
+            env_file_path = ancestor.join(".env");
+            break;
+        }
+    }
+    dotenvy::from_path_override(env_file_path)?;
+    Ok(())
+}
+
 pub struct EnvironmentVariables {
     pub auth_default_return_to: String,
     pub google_oauth_client_id: String,

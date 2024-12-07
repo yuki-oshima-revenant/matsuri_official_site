@@ -1,14 +1,23 @@
-import React, { useMemo } from 'react';
-import { Card, Carousel, Row, Col } from 'antd';
-import BasicLayout from '../../components/layout/BasicLayout';
-import FlierCard from '../../components/card/FlierCard';
-import CategoryCard from '../../components/card/CategoryCard';
-import { pastEventList, dekamoriList, events } from '../../data/event';
-import styles from './index.module.css';
+import React, { useEffect, useMemo } from "react";
+import { Card, Carousel, Row, Col } from "antd";
+import BasicLayout from "../../components/layout/BasicLayout";
+import FlierCard from "../../components/card/FlierCard";
+import CategoryCard from "../../components/card/CategoryCard";
+import { pastEventList, dekamoriList } from "../../data/event";
+import styles from "./index.module.css";
+import { archiveDataIndex } from "../../data/archive";
 
-const Index = ({
-    history
-}) => {
+const Index = ({ history }) => {
+    useEffect(() => {
+        const archive = Object.entries(archiveDataIndex).map(([key, data]) => {
+            return {
+                evnetId: key,
+                parformances: [...data],
+            };
+        });
+        console.log(JSON.stringify(archive));
+    }, []);
+
     const overlayText = useMemo(() => {
         return (
             <div className={styles.centeredText}>
@@ -16,7 +25,8 @@ const Index = ({
                     僕の<span className={styles.emphasis}>最弱</span>を以て、
                 </div>
                 <div>
-                    君の<span className={styles.emphasis}>最強</span>を打ち破る——。
+                    君の<span className={styles.emphasis}>最強</span>
+                    を打ち破る——。
                 </div>
             </div>
         );
@@ -24,8 +34,7 @@ const Index = ({
 
     return (
         <BasicLayout>
-            <Carousel
-                effect="fade">
+            <Carousel effect="fade">
                 <div className={styles.container}>
                     <div className={styles.trim}>
                         <img
@@ -56,7 +65,12 @@ const Index = ({
                 </div> */}
             </Carousel>
             <Card
-                style={{ marginRight: 16, marginLeft: 16, backgroundColor: 'black', color: 'white' }}
+                style={{
+                    marginRight: 16,
+                    marginLeft: 16,
+                    backgroundColor: "black",
+                    color: "white",
+                }}
                 bordered={false}
             >
                 {/* <div id="next">
@@ -81,9 +95,7 @@ const Index = ({
                 <div id="past">
                     <Row>
                         <Col>
-                            <CategoryCard
-                                title="過去の祭"
-                            >
+                            <CategoryCard title="過去の祭">
                                 <Row gutter={[24, 24]}>
                                     {pastEventList.map((eventInfo) => (
                                         <Col sm={24} md={8}>
@@ -101,9 +113,7 @@ const Index = ({
                 <div id="dekamori">
                     <Row>
                         <Col>
-                            <CategoryCard
-                                title="デカ盛り美食大会"
-                            >
+                            <CategoryCard title="デカ盛り美食大会">
                                 <Row>
                                     {dekamoriList.map((info) => (
                                         <Col sm={24} md={8}>

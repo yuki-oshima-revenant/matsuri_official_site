@@ -11,6 +11,8 @@ import {
 } from "../lib/util/date";
 import { ArchiveBreadcrumb } from "../lib/component/breadcrumb";
 
+const pageHeaderHeight = 72;
+
 export const EventPage = () => {
     const params = useParams<{ eventid: string }>();
     const event = useAtomValue(eventAtom({ eventId: params.eventid ?? null }));
@@ -24,31 +26,51 @@ export const EventPage = () => {
     if (!event) return null;
     const { eventId, title, date, place } = event;
     return (
-        <div>
-            <div className="mb-2">
-                <ArchiveBreadcrumb event={null} />
-            </div>
-            <div className="flex mb-6">
-                <h2 className="text-4xl font-bold h-auto my-auto tracking-tight">
-                    {title}
-                </h2>
-                <div className="grow" />
-                <div className="text-sm text-zinc-400 flex flex-col gap-1">
-                    <div className="flex gap-2">
-                        <PiCalendarBlank size={14} className="h-auto my-auto" />
-                        {formatEventDate(date)}
-                    </div>
-                    <div className="flex gap-2">
-                        <PiMapPinSimple size={14} className="h-auto my-auto" />
-                        {place}
+        <div className="h-full">
+            <div
+                className="mb-6"
+                style={{
+                    height: pageHeaderHeight,
+                }}
+            >
+                <div className="mb-2">
+                    <ArchiveBreadcrumb event={null} />
+                </div>
+                <div className="flex">
+                    <h2 className="text-4xl font-bold h-auto my-auto tracking-tight">
+                        {title}
+                    </h2>
+                    <div className="grow" />
+                    <div className="text-sm text-zinc-400 flex flex-col gap-1">
+                        <div className="flex gap-2">
+                            <PiCalendarBlank
+                                size={14}
+                                className="h-auto my-auto"
+                            />
+                            {formatEventDate(date)}
+                        </div>
+                        <div className="flex gap-2">
+                            <PiMapPinSimple
+                                size={14}
+                                className="h-auto my-auto"
+                            />
+                            {place}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-6">
-                <img
-                    src={`https://delivery.unronritaro.net/matsuri/image/flyer/${eventId}.png`}
-                />
-                <div className="flex flex-col gap-4">
+            <div
+                className="grid grid-cols-2 gap-6 h-full"
+                style={{
+                    height: `calc(100% - ${pageHeaderHeight}px - 24px)`,
+                }}
+            >
+                <div className="col-span-1">
+                    <img
+                        src={`https://delivery.unronritaro.net/matsuri/image/flyer/${eventId}.png`}
+                    />
+                </div>
+                <div className="flex flex-col gap-4 h-full overflow-y-auto col-span-1">
                     {performances.map(
                         ({
                             performanceOrder,

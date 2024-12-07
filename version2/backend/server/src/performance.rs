@@ -85,7 +85,7 @@ async fn list_in_event_handler(
             return StatusCode::INTERNAL_SERVER_ERROR.into_response();
         }
     };
-    performances.sort_by(|a, b| a.get_performance_order().cmp(&b.get_performance_order()));
+    performances.sort_by(|a, b| a.performance_order.cmp(&b.performance_order));
     match get_user_info_from_session(session).await {
         Ok(_) => (),
         Err(_) => {
@@ -119,7 +119,7 @@ async fn list_handler(session: Session) -> Response {
             return StatusCode::INTERNAL_SERVER_ERROR.into_response();
         }
     };
-    performances.sort_by(|a, b| a.get_performance_order().cmp(&b.get_performance_order()));
+    performances.sort_by(|a, b| a.performance_order.cmp(&b.performance_order));
     match get_user_info_from_session(session).await {
         Ok(_) => (),
         Err(_) => {

@@ -74,10 +74,10 @@ impl TryFrom<HashMap<String, AttributeValue>> for RegisteredUser {
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Event {
-    event_id: String,
-    date: i64,
-    place: String,
-    title: String,
+    pub event_id: String,
+    pub date: i64,
+    pub place: String,
+    pub title: String,
 }
 
 impl Event {
@@ -102,38 +102,87 @@ impl TryFrom<HashMap<String, AttributeValue>> for Event {
     }
 }
 
+impl From<Event> for HashMap<String, AttributeValue> {
+    fn from(event: Event) -> Self {
+        let mut map = HashMap::new();
+        map.insert("event_id".to_string(), AttributeValue::S(event.event_id));
+        map.insert(
+            "date".to_string(),
+            AttributeValue::N(event.date.to_string()),
+        );
+        map.insert("place".to_string(), AttributeValue::S(event.place));
+        map.insert("title".to_string(), AttributeValue::S(event.title));
+        map
+    }
+}
+
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Track {
-    artist: String,
-    title: String,
+    pub artist: String,
+    pub title: String,
+}
+
+// index, artist, title, album
+impl Track {
+    pub fn from_tsv_line(line: &str) -> Result<Self, OpaqueError> {
+        let mut columns = line.split("\t");
+        let _index = columns.next().ok_or("index is missing")?;
+        let artist = columns.next().ok_or("artist is missing")?;
+        let title = columns.next().ok_or("title is missing")?;
+        Ok(Self {
+            artist: artist.to_string(),
+            title: title.to_string(),
+        })
+    }
+}
+
+impl From<Track> for HashMap<String, AttributeValue> {
+    fn from(track: Track) -> Self {
+        let mut map = HashMap::new();
+        map.insert("artist".to_string(), AttributeValue::S(track.artist));
+        map.insert("title".to_string(), AttributeValue::S(track.title));
+        map
+    }
 }
 
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct GoogleDrive {
-    tracklist_id: Option<String>,
-    audio_id: Option<String>,
-    video_id: Option<String>,
+    pub tracklist_id: Option<String>,
+    pub audio_id: Option<String>,
+    pub video_id: Option<String>,
+}
+
+impl From<GoogleDrive> for HashMap<String, AttributeValue> {
+    fn from(google_drive: GoogleDrive) -> Self {
+        let mut map = HashMap::new();
+        if let Some(tracklist_id) = google_drive.tracklist_id {
+            map.insert("tracklist_id".to_string(), AttributeValue::S(tracklist_id));
+        }
+        if let Some(audio_id) = google_drive.audio_id {
+            map.insert("audio_id".to_string(), AttributeValue::S(audio_id));
+        }
+        if let Some(video_id) = google_drive.video_id {
+            map.insert("video_id".to_string(), AttributeValue::S(video_id));
+        }
+        map
+    }
 }
 
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Performance {
-    event_id: String,
-    performance_order: i64,
-    performer_name: String,
-    start_time: i64,
-    end_time: i64,
-    google_drive: GoogleDrive,
-    track_list: Vec<Track>,
+    pub event_id: String,
+    pub performance_order: i64,
+    pub performer_name: String,
+    pub start_time: i64,
+    pub end_time: i64,
+    pub google_drive: GoogleDrive,
+    pub track_list: Vec<Track>,
 }
 
 impl Performance {
-    pub fn get_performance_order(&self) -> i64 {
-        self.performance_order
-    }
-
     pub fn filter_out_track_list(&mut self) {
         self.track_list = vec![];
     }
@@ -171,6 +220,40 @@ impl TryFrom<HashMap<String, AttributeValue>> for Performance {
             google_drive,
             track_list,
         })
+    }
+}
+
+impl From<Performance> for HashMap<String, AttributeValue> {
+    fn from(value: Performance) -> Self {
+        let mut map = HashMap::new();
+        map.insert("event_id".to_string(), AttributeValue::S(value.event_id));
+        map.insert(
+            "performance_order".to_string(),
+            AttributeValue::N(value.performance_order.to_string()),
+        );
+        map.insert(
+            "performer_name".to_string(),
+            AttributeValue::S(value.performer_name),
+        );
+        map.insert(
+            "start_time".to_string(),
+            AttributeValue::N(value.start_time.to_string()),
+        );
+        map.insert(
+            "end_time".to_string(),
+            AttributeValue::N(value.end_time.to_string()),
+        );
+        map.insert(
+            "google_drive".to_string(),
+            AttributeValue::M(value.google_drive.into()),
+        );
+        let track_list = value
+            .track_list
+            .into_iter()
+            .map(|track| AttributeValue::M(track.into()))
+            .collect();
+        map.insert("track_list".to_string(), AttributeValue::L(track_list));
+        map
     }
 }
 
@@ -264,6 +347,19 @@ impl DynamodbProcesser {
         Ok(deserialized_item)
     }
 
+    async fn put_item<T>(&self, table_name: &str, item: T) -> Result<(), OpaqueError>
+    where
+        T: Into<HashMap<String, AttributeValue>>,
+    {
+        self.dynamodb_client
+            .put_item()
+            .table_name(table_name)
+            .set_item(Some(item.into()))
+            .send()
+            .await?;
+        Ok(())
+    }
+
     pub async fn is_registered_user(
         &self,
         user_info_response: &UserInfoResponse,
@@ -324,6 +420,10 @@ impl DynamodbProcesser {
         )
         .await
     }
+
+    pub async fn put_performance(&self, performance: Performance) -> Result<(), OpaqueError> {
+        self.put_item(PERFORMANCE_TABLE_NAME, performance).await
+    }
 }
 
 #[cfg(test)]
@@ -375,6 +475,22 @@ mod test {
         let dynamodb_processer = DynamodbProcesser::new().await;
         let event = dynamodb_processer.get_event("2024").await.unwrap();
         println!("{:?}", event);
+    }
+
+    #[tokio::test]
+    async fn test_put_event() {
+        dotenv().ok();
+        let dynamodb_processer = DynamodbProcesser::new().await;
+        let event = Event {
+            event_id: "2024".to_string(),
+            date: 20241109,
+            place: "八王子Gluck".to_string(),
+            title: "大大大好祭".to_string(),
+        };
+        dynamodb_processer
+            .put_item(EVENT_TABLE_NAME, event)
+            .await
+            .unwrap();
     }
 
     #[tokio::test]

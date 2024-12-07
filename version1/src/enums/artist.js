@@ -1,9 +1,9 @@
 export default {
     revenant: "Revenant",
-    tyaposon: "txxxxxxx",
-    carpainter: "Cxxxxxxxxx",
-    getty: "Gxxxx",
-    isagen: "ixxxxx",
+    tyaposon: "tyaposon",
+    carpainter: "Carpainter",
+    getty: "Getty",
+    isagen: "isagen",
     kamisory: "Kamisory",
     neuromancer: "ニューロマンサー",
     free: "Free",

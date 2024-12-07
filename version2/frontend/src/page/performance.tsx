@@ -129,7 +129,7 @@ const VideoView: FunctionComponent<{
             <video
                 src={import.meta.env.PROD ? videoUrl.data.url : ""}
                 controls
-                className="grow"
+                className="grow aspect-video object-contain"
             />
         </div>
     );
@@ -152,11 +152,11 @@ const TrackListView: FunctionComponent<{
             {performance.trackList.map(({ artist, title }, index) => (
                 <div className="py-4 flex gap-4" key={index}>
                     <div className="h-auto my-auto">{`${index + 1}.`}</div>
-                    <div>
-                        <div className="text-sm mb-1 text-zinc-400">
+                    <div className="overflow-x-hidden">
+                        <div className="text-sm mb-1 text-zinc-400 truncate">
                             {artist}
                         </div>
-                        <div>{title}</div>
+                        <div className="truncate">{title}</div>
                     </div>
                 </div>
             ))}
@@ -183,6 +183,8 @@ const OpenGoogleDriveButton: FunctionComponent<{
     );
 };
 
+const pageHeaderHeight = 72;
+
 export const PerformancePage = () => {
     const params = useParams<{ eventid: string; performanceorder: string }>();
     const event = useAtomValue(eventAtom({ eventId: params.eventid ?? null }));
@@ -196,79 +198,85 @@ export const PerformancePage = () => {
     if (!event || !performance) return null;
 
     return (
-        <div>
-            <div className="mb-2">
-                <ArchiveBreadcrumb event={event} />
-            </div>
-            <div className="mb-6 flex gap-2">
-                <div>
-                    <div className="flex gap-2 text-4xl font-bold">
-                        <div>{`${performance.performanceOrder}.`}</div>
-                        <div>{performance.performerName}</div>
-                    </div>
+        <div className="h-full">
+            <div
+                className="mb-6"
+                style={{
+                    height: pageHeaderHeight,
+                }}
+            >
+                <div className="mb-2">
+                    <ArchiveBreadcrumb event={event} />
                 </div>
-                <div className="grow" />
-                <div className="text-right flex flex-col gap-1">
-                    <div className="text-sm text-zinc-400 h-auto mt-auto">
-                        <div className="flex justify-end gap-1">
-                            <PiClock size={18} className="h-auto my-auto" />
-                            {`${getPerformanceDurationMinutes(performance.startTime, performance.endTime)} min`}
+                <div className="flex gap-2">
+                    <div>
+                        <div className="flex gap-2 text-4xl font-bold">
+                            <div>{`${performance.performanceOrder}.`}</div>
+                            <div>{performance.performerName}</div>
                         </div>
                     </div>
-                    <div className="text-sm text-zinc-400 flex gap-2">
-                        <div>
-                            {formatPerformanceTime(performance.startTime)}
-                        </div>
-                        <div>-</div>
-                        <div>{formatPerformanceTime(performance.endTime)}</div>
-                    </div>
-                </div>
-            </div>
-            <div className="grid grid-cols-2 gap-6">
-                <div className="flex flex-col gap-6">
-                    <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6">
-                        <div className="flex gap-2 mb-6">
-                            <PiMicrophone
-                                size={20}
-                                className="h-auto my-auto"
-                            />
-                            <div className="text-xl font-bold h-auto my-auto">
-                                Audio
+                    <div className="grow" />
+                    <div className="text-right flex flex-col gap-1">
+                        <div className="text-sm text-zinc-400 h-auto mt-auto">
+                            <div className="flex justify-end gap-1">
+                                <PiClock size={18} className="h-auto my-auto" />
+                                {`${getPerformanceDurationMinutes(performance.startTime, performance.endTime)} min`}
                             </div>
-                            <div className="grow" />
-                            <OpenGoogleDriveButton
-                                id={performance.googleDrive.audioId}
-                            />
                         </div>
-                        <AudioView
-                            eventId={params.eventid ?? null}
-                            performanceOrder={params.performanceorder ?? null}
-                            performance={performance}
-                        />
-                    </div>
-                    <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6">
-                        <div className="flex gap-2 mb-6">
-                            <PiVideoCamera
-                                size={20}
-                                className="h-auto my-auto"
-                            />
-                            <div className="text-xl font-bold h-auto my-auto">
-                                Video
+                        <div className="text-sm text-zinc-400 flex gap-2">
+                            <div>
+                                {formatPerformanceTime(performance.startTime)}
                             </div>
-                            <div className="grow" />
-                            <OpenGoogleDriveButton
-                                id={performance.googleDrive.videoId}
-                            />
+                            <div>-</div>
+                            <div>
+                                {formatPerformanceTime(performance.endTime)}
+                            </div>
                         </div>
-                        <VideoView
-                            eventId={params.eventid ?? null}
-                            performanceOrder={params.performanceorder ?? null}
-                            performance={performance}
-                        />
                     </div>
                 </div>
-                <div className="border border-zinc-700 bg-zinc-900 p-6 rounded-lg">
+            </div>
+            <div
+                className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-6"
+                style={{
+                    height: `calc(100% - ${pageHeaderHeight}px - 24px)`,
+                }}
+            >
+                <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6 row-span-1 col-span-1">
                     <div className="flex gap-2 mb-6">
+                        <PiMicrophone size={20} className="h-auto my-auto" />
+                        <div className="text-xl font-bold h-auto my-auto">
+                            Audio
+                        </div>
+                        <div className="grow" />
+                        <OpenGoogleDriveButton
+                            id={performance.googleDrive.audioId}
+                        />
+                    </div>
+                    <AudioView
+                        eventId={params.eventid ?? null}
+                        performanceOrder={params.performanceorder ?? null}
+                        performance={performance}
+                    />
+                </div>
+                <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6 row-span-3 col-span-1">
+                    <div className="flex gap-2 mb-6">
+                        <PiVideoCamera size={20} className="h-auto my-auto" />
+                        <div className="text-xl font-bold h-auto my-auto">
+                            Video
+                        </div>
+                        <div className="grow" />
+                        <OpenGoogleDriveButton
+                            id={performance.googleDrive.videoId}
+                        />
+                    </div>
+                    <VideoView
+                        eventId={params.eventid ?? null}
+                        performanceOrder={params.performanceorder ?? null}
+                        performance={performance}
+                    />
+                </div>
+                <div className="border border-zinc-700 bg-zinc-900 rounded-lg pt-6 row-span-4 col-span-1 flex flex-col">
+                    <div className="flex gap-2 px-6 mb-6">
                         <PiList size={20} className="h-auto my-auto" />
                         <div className="text-xl font-bold h-auto my-auto">
                             Track List
@@ -278,7 +286,9 @@ export const PerformancePage = () => {
                             id={performance.googleDrive.tracklistId}
                         />
                     </div>
-                    <TrackListView performance={performance} />
+                    <div className="overflow-y-auto px-6 pb-6">
+                        <TrackListView performance={performance} />
+                    </div>
                 </div>
             </div>
         </div>
