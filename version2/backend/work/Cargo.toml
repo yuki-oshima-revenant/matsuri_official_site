@@ -1,0 +1,13 @@
+[package]
+name = "matsuri-official-site-work"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "create-performance"
+path = "src/bin/create_performance.rs"
+
+[dependencies]
+tokio = { workspace = true }
+
+matsuri-official-site-common = { path = "../common" }

@@ -4,18 +4,18 @@ use axum::{
     routing::{get, post},
     Router,
 };
+use matsuri_official_site_common::{
+    dynamodb::DynamodbProcesser,
+    google::{format_auth_request_url, get_google_oauth_token, get_google_user_info},
+    EnvironmentVariables,
+};
 use reqwest::{header, StatusCode};
 use serde::{Deserialize, Serialize};
 use tower_sessions::Session;
 use tracing::error;
 use url::Url;
 
-use crate::{
-    dynamodb::DynamodbProcesser,
-    google::{format_auth_request_url, get_google_oauth_token, get_google_user_info},
-    session::{get_user_info_from_session, User, SESSION_USER_KEY},
-    EnvironmentVariables,
-};
+use crate::session::{get_user_info_from_session, User, SESSION_USER_KEY};
 
 pub fn api_auth_router() -> Router {
     let router = Router::new()

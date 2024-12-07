@@ -1,11 +1,8 @@
-[package]
-name = "matsuri-official-site-backend"
-version = "0.1.0"
-edition = "2021"
+[workspace]
+resolver = "2"
+members = ["common", "server", "work"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
+[workspace.dependencies]
 axum = "0.7.8"
 tokio = { version = "1.41.1", features = ["full"] }
 lambda_http = "0.13.0"
@@ -17,15 +14,13 @@ tower = "0.5.1"
 tower-sessions = "0.13.0"
 time = "0.3.36"
 tracing = "0.1.40"
-
 aws-config = { version = "1.1.7", features = ["behavior-version-latest"] }
 aws-sdk-dynamodb = "1.54.0"
 chrono = "0.4.38"
 rsa = { version = "0.9.6", features = ["sha1"] }
 sha1 = "0.10.6"
 base64 = "0.22.1"
-
-[dependencies.reqwest]
-version = "0.12.9"
-default-features = false
-features = ["json", "rustls-tls"]
+reqwest = { version = "0.12.9", default-features = false, features = [
+    "json",
+    "rustls-tls",
+] }

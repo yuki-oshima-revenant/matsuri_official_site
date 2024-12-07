@@ -1,6 +1,6 @@
 use axum::Router;
 use lambda_http::tower::ServiceBuilder;
-use matsuri_official_site_backend::{auth, event, media, performance};
+use matsuri_official_site_server::{auth, event, media, performance};
 use std::env::set_var;
 use time::Duration;
 use tower_sessions::{Expiry, MemoryStore, SessionManagerLayer};

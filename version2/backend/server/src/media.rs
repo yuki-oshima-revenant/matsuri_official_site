@@ -4,6 +4,7 @@ use axum::{
     Json, Router,
 };
 use base64::Engine;
+use matsuri_official_site_common::{EnvironmentVariables, OpaqueError};
 use reqwest::{header, StatusCode};
 use rsa::pkcs8::DecodePrivateKey;
 use serde::{Deserialize, Serialize};
@@ -12,7 +13,7 @@ use tower_sessions::Session;
 use tracing::error;
 use url::Url;
 
-use crate::{session::get_user_info_from_session, EnvironmentVariables, OpaqueError};
+use crate::session::get_user_info_from_session;
 
 pub fn api_media_router() -> Router {
     let router = Router::new().route("/get_url", post(get_url_handler));

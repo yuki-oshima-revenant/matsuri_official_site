@@ -3,12 +3,13 @@ use axum::{
     routing::post,
     Json, Router,
 };
+use matsuri_official_site_common::dynamodb::DynamodbProcesser;
 use reqwest::{header, StatusCode};
 use serde::Deserialize;
 use tower_sessions::Session;
 use tracing::error;
 
-use crate::{dynamodb::DynamodbProcesser, session::get_user_info_from_session};
+use crate::session::get_user_info_from_session;
 
 pub fn api_performance_router() -> Router {
     let router = Router::new()

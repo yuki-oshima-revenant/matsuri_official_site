@@ -1,4 +1,4 @@
-use crate::OpaqueError;
+use matsuri_official_site_common::OpaqueError;
 use serde::{Deserialize, Serialize};
 use tower_sessions::Session;
 use tracing::{error, warn};

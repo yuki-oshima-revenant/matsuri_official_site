@@ -1,10 +1,5 @@
-pub mod auth;
-mod dynamodb;
-pub mod event;
-mod google;
-pub mod media;
-pub mod performance;
-mod session;
+pub mod dynamodb;
+pub mod google;
 
 use std::{
     env::{self, VarError},

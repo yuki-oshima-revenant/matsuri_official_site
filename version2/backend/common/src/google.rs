@@ -1,6 +1,6 @@
-use crate::{auth::SigninParams, EnvironmentVariables, OpaqueError};
+use crate::{EnvironmentVariables, OpaqueError};
 use axum::http::HeaderMap;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use url::Url;
 
 const SCOPES: [&'static str; 3] = [
@@ -9,9 +9,9 @@ const SCOPES: [&'static str; 3] = [
     "https://www.googleapis.com/auth/userinfo.profile",
 ];
 
-pub fn format_auth_request_url(
+pub fn format_auth_request_url<T: Serialize>(
     environment_variables: &EnvironmentVariables,
-    singin_params: &SigninParams,
+    singin_params: T,
 ) -> Result<Url, OpaqueError> {
     let url = Url::parse_with_params(
         "https://accounts.google.com/o/oauth2/v2/auth",
@@ -26,10 +26,7 @@ pub fn format_auth_request_url(
             ),
             ("response_type", "code"),
             ("scope", SCOPES.join(" ").as_str()),
-            (
-                "state",
-                serde_json::to_string::<SigninParams>(&singin_params)?.as_str(),
-            ),
+            ("state", serde_json::to_string(&singin_params)?.as_str()),
             ("access_type", "online"),
             ("prompt", "select_account"),
         ],
@@ -87,7 +84,6 @@ pub async fn get_google_user_info(
     reqwest_client: &reqwest::Client,
     token_response: &TokenResonse,
 ) -> Result<UserInfoResponse, OpaqueError> {
-    println!("{:?}", token_response);
     let mut user_info_headers = HeaderMap::new();
     user_info_headers.append(
         reqwest::header::AUTHORIZATION,

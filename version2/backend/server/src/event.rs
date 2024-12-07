@@ -3,11 +3,10 @@ use axum::{
     routing::post,
     Json, Router,
 };
+use matsuri_official_site_common::dynamodb::DynamodbProcesser;
 use reqwest::{header, StatusCode};
 use serde::Deserialize;
 use tracing::error;
-
-use crate::dynamodb::DynamodbProcesser;
 
 pub fn api_event_router() -> Router {
     let router = Router::new()
