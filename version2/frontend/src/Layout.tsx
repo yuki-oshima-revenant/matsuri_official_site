@@ -1,10 +1,13 @@
 import { Outlet } from "react-router";
-import { FunctionComponent, Suspense, useMemo } from "react";
+import { FunctionComponent, Suspense, useEffect, useMemo } from "react";
 import { PiCircleNotch } from "react-icons/pi";
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
 import { Function, functions, Paths } from "./lib/util/path";
 import { FaGithub } from "react-icons/fa6";
+import { ErrorMessage } from "./lib/component/Error";
+import { useAtom } from "jotai";
+import { errorCodeAtom } from "./lib/atom/common";
 
 const headerHeight = 64;
 const footerHeight = 36;
@@ -47,6 +50,13 @@ const SidebarMenuItem: FunctionComponent<{
 };
 
 export const Layout = () => {
+    const [errorCode, setErrorCode] = useAtom(errorCodeAtom);
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        setErrorCode(params.get("error_code") ?? null);
+    }, [setErrorCode]);
+
     return (
         <div className="text-white bg-zinc-950 relative">
             <div className="absolute z-10 top-0 h-screen w-full isolate">
@@ -105,6 +115,11 @@ export const Layout = () => {
                                 <Suspense fallback={<Loading />}>
                                     <Outlet />
                                 </Suspense>
+                                {errorCode && (
+                                    <div className="absolute top-6 right-6 z-20">
+                                        <ErrorMessage errorCode={errorCode} />
+                                    </div>
+                                )}
                             </div>
                             <footer
                                 className="flex justify-end text-xs text-zinc-400 px-6"

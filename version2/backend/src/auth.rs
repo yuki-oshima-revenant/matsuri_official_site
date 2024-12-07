@@ -117,6 +117,11 @@ async fn redirect_handler(session: Session, Query(params): Query<OauthCallbackPa
             return StatusCode::INTERNAL_SERVER_ERROR.into_response();
         }
     };
+    let return_to = if let Some(return_to) = return_to {
+        return_to
+    } else {
+        environment_variables.auth_default_return_to
+    };
     let dynamodb_processer = DynamodbProcesser::new().await;
     match dynamodb_processer
         .is_registered_user(&user_info_response)
@@ -124,7 +129,17 @@ async fn redirect_handler(session: Session, Query(params): Query<OauthCallbackPa
     {
         Ok(true) => (),
         Ok(false) => {
-            return StatusCode::UNAUTHORIZED.into_response();
+            let url = match Url::parse_with_params(
+                return_to.as_str(),
+                &[("error_code", "not_registered_user")],
+            ) {
+                Ok(url) => url,
+                Err(error) => {
+                    error!("failed to format redirect url {:?}", error);
+                    return StatusCode::INTERNAL_SERVER_ERROR.into_response();
+                }
+            };
+            return Redirect::to(url.as_str()).into_response();
         }
         Err(error) => {
             error!("failed to check registered user {:?}", error);
@@ -149,11 +164,6 @@ async fn redirect_handler(session: Session, Query(params): Query<OauthCallbackPa
             return StatusCode::INTERNAL_SERVER_ERROR.into_response();
         }
     }
-    let return_to = if let Some(return_to) = return_to {
-        return_to
-    } else {
-        environment_variables.auth_default_return_to
-    };
     let url = match Url::parse(return_to.as_str()) {
         Ok(url) => url,
         Err(error) => {
