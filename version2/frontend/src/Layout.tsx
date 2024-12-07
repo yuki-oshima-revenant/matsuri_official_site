@@ -110,7 +110,7 @@ export const Layout = () => {
                                 </Suspense>
                             </div>
                             <footer
-                                className="flex justify-end text-xs px-6"
+                                className="flex justify-end text-xs text-zinc-400 px-6"
                                 style={{ height: footerHeight }}
                             >
                                 <div className="h-auto my-auto">

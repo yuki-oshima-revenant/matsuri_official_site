@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { eventListAtom } from "../lib/atom/event";
 import { useAtomValue } from "jotai";
 import { EventCard } from "../lib/component/card";
+import { isFutureEventDate } from "../lib/util/date";
 
 const Slogan = () => {
     return (
@@ -32,23 +33,29 @@ const Slogan = () => {
 export const HomePage = () => {
     const navigate = useNavigate();
     const eventList = useAtomValue(eventListAtom);
-    const recentEvents = eventList.slice(0, 3);
+    const recentEvent = eventList[0];
 
     return (
         <div className="h-full">
-            <div className="mb-10">
-                <h2 className="text-2xl font-bold h-auto my-auto tracking-tight mb-6">
-                    最近の祭
-                </h2>
-                <div className="grid grid-cols-3 gap-6">
-                    {recentEvents.map((event) => (
-                        <EventCard event={event} key={event.eventId} />
-                    ))}
+            {recentEvent && (
+                <div className="mb-8">
+                    <h2 className="text-3xl font-bold text-center tracking-tight mb-6">
+                        {isFutureEventDate(recentEvent.date)
+                            ? "次回の祭"
+                            : "最近の祭"}
+                    </h2>
+                    <div className="flex justify-center">
+                        <div className="w-[640px]">
+                            <EventCard
+                                event={recentEvent}
+                                key={recentEvent.eventId}
+                            />
+                        </div>
+                    </div>
                 </div>
-            </div>
-
+            )}
             <div>
-                <h2 className="text-2xl font-bold h-auto my-auto tracking-tight mb-6">
+                <h2 className="text-3xl font-bold text-center tracking-tight mb-6">
                     メニュー
                 </h2>
                 <div className="grid grid-cols-4 gap-6">

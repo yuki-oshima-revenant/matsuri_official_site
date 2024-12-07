@@ -1,4 +1,4 @@
-import { format, parse } from "date-fns";
+import { format, isBefore, parse } from "date-fns";
 
 export const formatEventDate = (date: number) => {
     const parsed = parse(String(date), "yyyyMMdd", new Date());
@@ -22,4 +22,8 @@ export const getPerformanceDurationMinutes = (
     const endDate = parsePerformanceTime(endTime);
     const duration = endDate.getTime() - startDate.getTime();
     return duration / 1000 / 60;
+};
+
+export const isFutureEventDate = (date: number) => {
+    return isBefore(new Date(), parse(String(date), "yyyyMMdd", new Date()));
 };

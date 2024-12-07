@@ -9,6 +9,7 @@ import { DekamoriPage } from "./page/dekamori";
 import { ArchivePage } from "./page/archive";
 import { Paths } from "./lib/util/path";
 import { AiPage } from "./page/ai";
+import { WatchPartyPage } from "./page/watchparty";
 
 export const App = () => {
     return (
@@ -25,6 +26,10 @@ export const App = () => {
                         />
                     </Route>
                     <Route path={Paths.SEARCH} element={<SearchPage />} />
+                    <Route
+                        path={Paths.WATCHPARTY}
+                        element={<WatchPartyPage />}
+                    />
                     <Route path={Paths.AI} element={<AiPage />} />
                     <Route path={Paths.DEKAMORI} element={<DekamoriPage />} />
                 </Route>

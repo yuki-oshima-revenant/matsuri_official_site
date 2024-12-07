@@ -5,12 +5,14 @@ import {
     MagnifyingGlass,
     House,
     HeadCircuit,
+    MonitorPlay,
 } from "@phosphor-icons/react";
 
 export enum Paths {
     HOME = "/",
     ARCHIVE = "/archive",
     SEARCH = "/search",
+    WATCHPARTY = "/watchparty",
     AI = "/ai",
     DEKAMORI = "/dekamori",
 }
@@ -44,6 +46,13 @@ export const functions: Function[] = [
         icon: MagnifyingGlass,
         title: "祭インデックス",
         description: "祭のトラックリストを検索することができます",
+        underConstruction: true,
+    },
+    {
+        path: Paths.WATCHPARTY,
+        icon: MonitorPlay,
+        title: "祭ウォッチパーティ",
+        description: "祭の動画/音声を一緒に視聴することができます",
         underConstruction: true,
     },
     {
