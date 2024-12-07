@@ -16,6 +16,7 @@ time = "0.3.36"
 tracing = "0.1.40"
 aws-config = { version = "1.1.7", features = ["behavior-version-latest"] }
 aws-sdk-dynamodb = "1.54.0"
+aws-sdk-s3 = "1.65.0"
 chrono = "0.4.38"
 rsa = { version = "0.9.6", features = ["sha1"] }
 sha1 = "0.10.6"

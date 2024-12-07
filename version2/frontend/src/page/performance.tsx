@@ -92,11 +92,7 @@ const AudioView: FunctionComponent<{
 
     return (
         <div className="flex">
-            <audio
-                src={import.meta.env.PROD ? audioUrl.data.url : ""}
-                controls
-                className="grow"
-            />
+            <audio src={audioUrl.data.url} controls className="grow h-10" />
         </div>
     );
 };
@@ -127,7 +123,7 @@ const VideoView: FunctionComponent<{
     return (
         <div className="flex">
             <video
-                src={import.meta.env.PROD ? videoUrl.data.url : ""}
+                src={videoUrl.data.url}
                 controls
                 className="grow aspect-video object-contain"
             />

@@ -11,5 +11,7 @@ path = "src/bin/create_performance.rs"
 tokio = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
+aws-config = { workspace = true }
+aws-sdk-s3 = { workspace = true }
 
 matsuri-official-site-common = { path = "../common" }
