@@ -40,12 +40,6 @@ export class ServerStack extends Stack {
             "MatsuriOfficialSiteServerRestApi",
             {
                 handler,
-                defaultCorsPreflightOptions: {
-                    allowOrigins: ["matsuri.unronritaro.net"],
-                    allowMethods: Cors.ALL_METHODS,
-                    allowHeaders: Cors.DEFAULT_HEADERS,
-                    allowCredentials: true,
-                },
                 domainName: {
                     certificate: Certificate.fromCertificateArn(
                         this,

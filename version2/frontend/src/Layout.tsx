@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
 import { Function, functions, Paths } from "./lib/util/path";
 import { FaGithub } from "react-icons/fa6";
-import { ErrorMessage } from "./lib/component/Error";
+import { ErrorMessage } from "./lib/component/error";
 import { useAtom } from "jotai";
 import { errorCodeAtom } from "./lib/atom/common";
 

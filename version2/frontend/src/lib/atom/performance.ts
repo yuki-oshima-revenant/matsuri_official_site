@@ -2,6 +2,7 @@ import { atom } from "jotai";
 import { atomFamily } from "jotai/utils";
 import deepEqual from "fast-deep-equal";
 import { Performance } from "../type";
+import { request } from "../util/request";
 
 export const performanceAtom = atomFamily(
     ({
@@ -13,15 +14,9 @@ export const performanceAtom = atomFamily(
     }) => {
         return atom<Promise<Performance> | null>(async () => {
             if (!eventId || !performanceOrder) return null;
-            const response = await fetch("/api/performance/get", {
-                method: "POST",
-                body: JSON.stringify({
-                    eventId,
-                    performanceOrder,
-                }),
-                headers: {
-                    "Content-Type": "application/json",
-                },
+            const response = await request({
+                endpoint: "/performance/get",
+                body: { eventId, performanceOrder },
             });
             return await response.json();
         });
@@ -33,12 +28,9 @@ export const performanceListInEventAtom = atomFamily(
     ({ eventId }: { eventId: string | null }) =>
         atom<Promise<Performance[]>>(async () => {
             if (!eventId) return [];
-            const response = await fetch("/api/performance/list_in_event", {
-                method: "POST",
-                body: JSON.stringify({ eventId }),
-                headers: {
-                    "Content-Type": "application/json",
-                },
+            const response = await request({
+                endpoint: "/performance/list_in_event",
+                body: { eventId },
             });
             return await response.json();
         }),
@@ -66,16 +58,9 @@ export const performanceMediaUrlAtom = atomFamily(
             }>
         >(async () => {
             if (!eventId || !performanceOrder) return null;
-            const response = await fetch("/api/media/get_url", {
-                method: "POST",
-                body: JSON.stringify({
-                    eventId,
-                    performanceOrder,
-                    mediaFormat,
-                }),
-                headers: {
-                    "Content-Type": "application/json",
-                },
+            const response = await request({
+                endpoint: "/media/get_url",
+                body: { eventId, performanceOrder, mediaFormat },
             });
             return await response.json();
         });

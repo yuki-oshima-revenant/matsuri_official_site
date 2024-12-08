@@ -1,8 +1,13 @@
-use axum::Router;
+use axum::{
+    http::{HeaderName, HeaderValue},
+    Router,
+};
 use matsuri_official_site_common::load_env_file;
 use matsuri_official_site_server::{auth, event, media, performance};
+use reqwest::Method;
 use std::env::set_var;
 use time::Duration;
+use tower_http::cors::CorsLayer;
 use tower_sessions::{Expiry, SessionManagerLayer};
 use tower_sessions_dynamodb_store::{DynamoDBStore, DynamoDBStoreProps};
 
@@ -21,6 +26,11 @@ async fn main() -> Result<(), lambda_http::Error> {
     let session_store = DynamoDBStore::new(dynamodb_client, store_props);
     let session_layer = SessionManagerLayer::new(session_store)
         .with_secure(!cfg!(debug_assertions))
+        .with_domain(if cfg!(debug_assertions) {
+            "localhost".to_string()
+        } else {
+            "unronritaro.net".to_string()
+        })
         .with_expiry(Expiry::OnInactivity(Duration::days(1)));
 
     let app = Router::new()
@@ -28,7 +38,16 @@ async fn main() -> Result<(), lambda_http::Error> {
         .nest("/event", event::api_event_router())
         .nest("/performance", performance::api_performance_router())
         .nest("/media", media::api_media_router())
-        .layer(session_layer);
+        .layer(session_layer)
+        .layer(
+            CorsLayer::new()
+                .allow_methods([Method::GET, Method::POST, Method::OPTIONS, Method::HEAD])
+                .allow_origin(vec![HeaderValue::from_static(
+                    "https://matsuri.unronritaro.net",
+                )])
+                .allow_credentials(true)
+                .allow_headers([HeaderName::from_static("content-type")]),
+        );
 
     if cfg!(debug_assertions) {
         load_env_file()?;

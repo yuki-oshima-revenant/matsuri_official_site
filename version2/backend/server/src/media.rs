@@ -161,8 +161,11 @@ fn create_cloudfront_signature(
     policy: PolicyStatements,
     environment_variables: &EnvironmentVariables,
 ) -> Result<String, OpaqueError> {
-    let private_key =
-        rsa::RsaPrivateKey::from_pkcs8_pem(&environment_variables.cloudfront_key_pair_private_key)?;
+    let private_key = rsa::RsaPrivateKey::from_pkcs8_pem(
+        &environment_variables
+            .cloudfront_key_pair_private_key
+            .replace("\\n", "\n"),
+    )?;
     let mut hasher = Sha1::new();
     hasher.update(serde_json::to_vec(&policy)?.as_slice());
     let sha1_digest = hasher.finalize();
