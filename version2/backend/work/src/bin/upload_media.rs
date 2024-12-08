@@ -1,4 +1,4 @@
-use aws_sdk_s3::primitives::ByteStream;
+use aws_sdk_s3::{primitives::ByteStream, types::StorageClass};
 use matsuri_official_site_common::{load_env_file, OpaqueError};
 use std::env;
 
@@ -30,6 +30,7 @@ async fn main() -> Result<(), OpaqueError> {
                             audio_path.file_stem().unwrap().to_str().unwrap()
                         ))
                         .body(ByteStream::from_path(&audio_path).await?)
+                        .storage_class(StorageClass::IntelligentTiering)
                         .content_type("audio/mpeg")
                         .send()
                         .await?;
@@ -56,6 +57,7 @@ async fn main() -> Result<(), OpaqueError> {
                             video_path.file_stem().unwrap().to_str().unwrap()
                         ))
                         .body(ByteStream::from_path(&video_path).await?)
+                        .storage_class(StorageClass::IntelligentTiering)
                         .content_type("video/mp4")
                         .send()
                         .await?;
