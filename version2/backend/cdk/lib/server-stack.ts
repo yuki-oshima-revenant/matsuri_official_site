@@ -9,6 +9,11 @@ import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
 import { ARecord, HostedZone, RecordTarget } from "aws-cdk-lib/aws-route53";
 import { ApiGateway } from "aws-cdk-lib/aws-route53-targets";
 
+const domainName = "unronritaro.net";
+const siteDomainName = `matsuri.${domainName}`;
+const apiDomainName = `api-matsuri.${domainName}`;
+const deliveryDomainName = `delivery.${domainName}`;
+
 export class ServerStack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props);
@@ -27,19 +32,24 @@ export class ServerStack extends Stack {
         const handler = new RustFunction(this, "Handler", {
             role,
             environment: {
-                AUTH_DEFAULT_RETURN_TO: "https://matsuri.unronritaro.net/",
-                CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME: "delivery.unronritaro.net",
+                AUTH_DEFAULT_RETURN_TO: `https://${siteDomainName}/`,
+                CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME: deliveryDomainName,
             },
             manifestPath: join(__dirname, "..", ".."),
             binaryName: "matsuri-official-site-server",
             architecture: Architecture.ARM_64,
         });
-        const apiDomainName = "api-matsuri.unronritaro.net";
         const api = new LambdaRestApi(
             this,
             "MatsuriOfficialSiteServerRestApi",
             {
                 handler,
+                defaultCorsPreflightOptions: {
+                    allowOrigins: [`https://${siteDomainName}`],
+                    allowMethods: Cors.ALL_METHODS,
+                    allowHeaders: Cors.DEFAULT_HEADERS,
+                    allowCredentials: true,
+                },
                 domainName: {
                     certificate: Certificate.fromCertificateArn(
                         this,
@@ -51,7 +61,7 @@ export class ServerStack extends Stack {
             },
         );
         const hostedZone = HostedZone.fromLookup(this, "HostedZone", {
-            domainName: "unronritaro.net",
+            domainName,
         });
         new ARecord(this, "ApiAliasRecord", {
             zone: hostedZone,
