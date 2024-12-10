@@ -1,4 +1,4 @@
-import { BrowserRouter, Route } from "react-router";
+import { BrowserRouter, Navigate, Route } from "react-router";
 import { Routes } from "react-router";
 import { Layout } from "./Layout";
 import { HomePage } from "./page/home";
@@ -16,6 +16,7 @@ export const App = () => {
         <BrowserRouter>
             <Routes>
                 <Route element={<Layout />}>
+                    <Route path="/top" element={<Navigate to="/" replace />} />
                     <Route index element={<HomePage />} />
                     <Route path={Paths.ARCHIVE}>
                         <Route index element={<ArchivePage />} />
