@@ -18,10 +18,11 @@ import {
     PiVideoCamera,
 } from "react-icons/pi";
 import { isLoginAtom } from "../lib/atom/auth";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { loadable } from "jotai/utils";
 import { Performance } from "../lib/type";
 import { ArchiveBreadcrumb } from "../lib/component/breadcrumb";
+import { IconType } from "react-icons";
 
 const getGoogleDriveUrl = (id: string) => {
     return `https://drive.google.com/file/d/${id}/view?usp=sharing`;
@@ -68,17 +69,15 @@ const NeedLogin: FunctionComponent<{
 };
 
 const AudioView: FunctionComponent<{
-    eventId: string | null;
-    performanceOrder: string | null;
     performance: Performance;
-}> = ({ eventId, performanceOrder, performance }) => {
+}> = ({ performance }) => {
     const isLogin = useAtomValue(isLoginAtom);
 
     const audioUrl = useAtomValue(
         loadable(
             performanceMediaUrlAtom({
-                eventId: eventId ?? null,
-                performanceOrder: Number(Number(performanceOrder ?? 0)),
+                eventId: performance.eventId,
+                performanceOrder: performance.performanceOrder,
                 mediaFormat: MediaFormat.AUDIO,
             }),
         ),
@@ -98,17 +97,15 @@ const AudioView: FunctionComponent<{
 };
 
 const VideoView: FunctionComponent<{
-    eventId: string | null;
-    performanceOrder: string | null;
     performance: Performance;
-}> = ({ eventId, performanceOrder, performance }) => {
+}> = ({ performance }) => {
     const isLogin = useAtomValue(isLoginAtom);
 
     const videoUrl = useAtomValue(
         loadable(
             performanceMediaUrlAtom({
-                eventId: eventId ?? null,
-                performanceOrder: Number(performanceOrder ?? 0),
+                eventId: performance.eventId,
+                performanceOrder: performance.performanceOrder,
                 mediaFormat: MediaFormat.VIDEO,
             }),
         ),
@@ -121,7 +118,7 @@ const VideoView: FunctionComponent<{
     if (videoUrl.state !== "hasData") return null;
 
     return (
-        <div className="flex">
+        <div className="h-full">
             <video
                 src={videoUrl.data.url}
                 controls
@@ -179,6 +176,71 @@ const OpenGoogleDriveButton: FunctionComponent<{
     );
 };
 
+const MediaTabButton: FunctionComponent<{
+    Icon: IconType;
+    label: string;
+    active: boolean;
+    onClick: () => void;
+}> = ({ Icon, label, active, onClick }) => {
+    return (
+        <button
+            className={`px-4 py-1 rounded flex gap-2 text-lg
+                ${active ? "bg-zinc-900" : "text-zinc-500"}
+            `}
+            onClick={onClick}
+        >
+            <Icon size={20} className="h-auto my-auto" />
+            <div>{label}</div>
+        </button>
+    );
+};
+
+const MediaTab: FunctionComponent<{
+    performance: Performance;
+}> = ({ performance }) => {
+    const [activeTab, setActiveTab] = useState<"audio" | "video">("video");
+    return (
+        <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6 flex flex-col">
+            <div className="flex mb-6">
+                <div className="bg-zinc-800 p-1 rounded inline-flex">
+                    <MediaTabButton
+                        Icon={PiVideoCamera}
+                        label="Video"
+                        active={activeTab === "video"}
+                        onClick={() => {
+                            setActiveTab("video");
+                        }}
+                    />
+                    <MediaTabButton
+                        Icon={PiMicrophone}
+                        label="Audio"
+                        active={activeTab === "audio"}
+                        onClick={() => {
+                            setActiveTab("audio");
+                        }}
+                    />
+                </div>
+                <div className="grow" />
+                <OpenGoogleDriveButton
+                    id={
+                        activeTab === "video"
+                            ? performance.googleDrive.videoId
+                            : performance.googleDrive.audioId
+                    }
+                />
+            </div>
+            <div className="grow">
+                {activeTab === "audio" && (
+                    <AudioView performance={performance} />
+                )}
+                {activeTab === "video" && (
+                    <VideoView performance={performance} />
+                )}
+            </div>
+        </div>
+    );
+};
+
 const pageHeaderHeight = 72;
 
 export const PerformancePage = () => {
@@ -232,46 +294,13 @@ export const PerformancePage = () => {
                 </div>
             </div>
             <div
-                className="grid grid-rows-4 grid-cols-2 grid-flow-col gap-6"
+                className="grid grid-rows-1 grid-cols-2 grid-flow-col gap-6"
                 style={{
                     height: `calc(100% - ${pageHeaderHeight}px - 24px)`,
                 }}
             >
-                <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6 row-span-1 col-span-1">
-                    <div className="flex gap-2 mb-6">
-                        <PiMicrophone size={20} className="h-auto my-auto" />
-                        <div className="text-xl font-bold h-auto my-auto">
-                            Audio
-                        </div>
-                        <div className="grow" />
-                        <OpenGoogleDriveButton
-                            id={performance.googleDrive.audioId}
-                        />
-                    </div>
-                    <AudioView
-                        eventId={params.eventid ?? null}
-                        performanceOrder={params.performanceorder ?? null}
-                        performance={performance}
-                    />
-                </div>
-                <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6 row-span-3 col-span-1">
-                    <div className="flex gap-2 mb-6">
-                        <PiVideoCamera size={20} className="h-auto my-auto" />
-                        <div className="text-xl font-bold h-auto my-auto">
-                            Video
-                        </div>
-                        <div className="grow" />
-                        <OpenGoogleDriveButton
-                            id={performance.googleDrive.videoId}
-                        />
-                    </div>
-                    <VideoView
-                        eventId={params.eventid ?? null}
-                        performanceOrder={params.performanceorder ?? null}
-                        performance={performance}
-                    />
-                </div>
-                <div className="border border-zinc-700 bg-zinc-900 rounded-lg pt-6 row-span-4 col-span-1 flex flex-col">
+                <MediaTab performance={performance} />
+                <div className="border border-zinc-700 bg-zinc-900 rounded-lg pt-6 row-span-1 col-span-1 flex flex-col">
                     <div className="flex gap-2 px-6 mb-6">
                         <PiList size={20} className="h-auto my-auto" />
                         <div className="text-xl font-bold h-auto my-auto">
