@@ -90,7 +90,7 @@ export const Layout = () => {
                                     );
                                 }}
                             >
-                                <FaGithub size={24} />
+                                <FaGithub size={20} />
                             </button>
                         </div>
                     </header>

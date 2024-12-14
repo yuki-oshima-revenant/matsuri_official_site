@@ -164,7 +164,7 @@ const OpenGoogleDriveButton: FunctionComponent<{
 
     return (
         <button
-            className="h-auto my-auto text-zinc-300"
+            className="h-auto my-auto text-zinc-300 hover:bg-zinc-800 duration-200 ease-in-out p-2 rounded-full"
             onClick={() => {
                 window.open(
                     `https://drive.google.com/file/d/${id}/view?usp=sharing`,
@@ -184,8 +184,8 @@ const MediaTabButton: FunctionComponent<{
 }> = ({ Icon, label, active, onClick }) => {
     return (
         <button
-            className={`px-4 py-1 rounded flex gap-2 text-lg
-                ${active ? "bg-zinc-900" : "text-zinc-500"}
+            className={`px-4 py-1 rounded flex gap-2 text-lg duration-200 ease-in-out
+                ${active ? "bg-zinc-900" : "text-zinc-500 hover:text-zinc-300"}
             `}
             onClick={onClick}
         >
