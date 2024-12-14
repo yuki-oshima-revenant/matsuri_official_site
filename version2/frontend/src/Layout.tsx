@@ -69,10 +69,10 @@ export const Layout = () => {
                     className="absolute object-cover h-full w-full z-10"
                 />
             </div>
-            <div className="absolute top-0 w-full h-screen z-20">
+            <div className="absolute top-0 w-full md:h-screen z-30">
                 <div className="static h-full">
                     <header
-                        className="h-20 flex fixed px-4 border-b border-zinc-700 w-full"
+                        className="h-20 flex fixed px-4 border-b border-zinc-700 w-full backdrop-blur-lg z-20"
                         style={{ height: headerHeight }}
                     >
                         <button
@@ -101,7 +101,7 @@ export const Layout = () => {
                         </div>
                     </header>
                     <main
-                        className="flex h-full"
+                        className="md:flex h-full"
                         style={{
                             paddingTop: headerHeight,
                         }}

@@ -200,7 +200,7 @@ const MediaTab: FunctionComponent<{
 }> = ({ performance }) => {
     const [activeTab, setActiveTab] = useState<"audio" | "video">("video");
     return (
-        <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6 flex flex-col">
+        <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6 flex flex-col h-full">
             <div className="flex mb-6">
                 <div className="bg-zinc-800 p-1 rounded-md inline-flex">
                     <MediaTabButton
@@ -229,7 +229,7 @@ const MediaTab: FunctionComponent<{
                     }
                 />
             </div>
-            <div className="grow">
+            <div className="grow aspect-video">
                 {activeTab === "audio" && (
                     <AudioView performance={performance} />
                 )}
@@ -294,13 +294,15 @@ export const PerformancePage = () => {
                 </div>
             </div>
             <div
-                className="grid grid-rows-2 md:grid-rows-1 grid-cols-1 md:grid-cols-2 grid-flow-col gap-6"
+                className="flex flex-col md:grid md:grid-rows-1 md:grid-cols-2 md:grid-flow-col gap-6"
                 style={{
                     height: `calc(100% - ${pageHeaderHeight}px - 24px)`,
                 }}
             >
-                <MediaTab performance={performance} />
-                <div className="border border-zinc-700 bg-zinc-900 rounded-lg pt-6 row-span-1 col-span-1 flex flex-col">
+                <div className="md:row-span-1 md:col-span-1">
+                    <MediaTab performance={performance} />
+                </div>
+                <div className="border border-zinc-700 bg-zinc-900 rounded-lg pt-6 md:row-span-1 md:col-span-1 flex flex-col">
                     <div className="flex gap-2 px-6 mb-6">
                         <PiList size={20} className="h-auto my-auto" />
                         <div className="text-xl font-bold h-auto my-auto">
