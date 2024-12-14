@@ -50,6 +50,7 @@ const SidebarMenuItem: FunctionComponent<{
 };
 
 export const Layout = () => {
+    const navigate = useNavigate();
     const [errorCode, setErrorCode] = useAtom(errorCodeAtom);
 
     useEffect(() => {
@@ -74,12 +75,17 @@ export const Layout = () => {
                         className="h-20 flex fixed px-4 border-b border-zinc-700 w-full"
                         style={{ height: headerHeight }}
                     >
-                        <div className="h-auto my-auto">
+                        <button
+                            className="h-auto my-auto"
+                            onClick={() => {
+                                navigate(Paths.HOME);
+                            }}
+                        >
                             <h1 className="text-3xl font-bold tracking-tight h-auto px-auto">
                                 <span className="font-serif mr-1">祭</span>
                                 <span>Official Site</span>
                             </h1>
-                        </div>
+                        </button>
                         <div className="grow" />
                         <div className="flex">
                             <button
@@ -100,9 +106,9 @@ export const Layout = () => {
                             paddingTop: headerHeight,
                         }}
                     >
-                        <div className="w-16 shrink-0 border-r border-zinc-700">
+                        <div className="hidden md:block w-16 shrink-0 border-r border-zinc-700">
                             {functions.map((func) => (
-                                <SidebarMenuItem func={func} />
+                                <SidebarMenuItem key={func.path} func={func} />
                             ))}
                         </div>
                         <div className="grow">

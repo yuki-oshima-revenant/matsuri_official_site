@@ -91,7 +91,7 @@ const AudioView: FunctionComponent<{
 
     return (
         <div className="flex">
-            <audio src={audioUrl.data.url} controls className="grow h-10" />
+            <audio src={audioUrl.data.url} controls className="grow" />
         </div>
     );
 };
@@ -118,7 +118,7 @@ const VideoView: FunctionComponent<{
     if (videoUrl.state !== "hasData") return null;
 
     return (
-        <div className="h-full">
+        <div className="flex">
             <video
                 src={videoUrl.data.url}
                 controls
@@ -184,7 +184,7 @@ const MediaTabButton: FunctionComponent<{
 }> = ({ Icon, label, active, onClick }) => {
     return (
         <button
-            className={`px-4 py-1 rounded flex gap-2 text-lg duration-200 ease-in-out
+            className={`px-4 py-1 rounded-md flex gap-2 text-lg duration-200 ease-in-out
                 ${active ? "bg-zinc-900" : "text-zinc-500 hover:text-zinc-300"}
             `}
             onClick={onClick}
@@ -202,7 +202,7 @@ const MediaTab: FunctionComponent<{
     return (
         <div className="border border-zinc-700 bg-zinc-900 rounded-lg p-6 flex flex-col">
             <div className="flex mb-6">
-                <div className="bg-zinc-800 p-1 rounded inline-flex">
+                <div className="bg-zinc-800 p-1 rounded-md inline-flex">
                     <MediaTabButton
                         Icon={PiVideoCamera}
                         label="Video"
@@ -294,7 +294,7 @@ export const PerformancePage = () => {
                 </div>
             </div>
             <div
-                className="grid grid-rows-1 grid-cols-2 grid-flow-col gap-6"
+                className="grid grid-rows-2 md:grid-rows-1 grid-cols-1 md:grid-cols-2 grid-flow-col gap-6"
                 style={{
                     height: `calc(100% - ${pageHeaderHeight}px - 24px)`,
                 }}

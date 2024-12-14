@@ -45,7 +45,7 @@ export const HomePage = () => {
                             : "最近の祭"}
                     </h2>
                     <div className="flex justify-center">
-                        <div className="w-[640px]">
+                        <div className="max-w-[640px]">
                             <EventCard
                                 event={recentEvent}
                                 key={recentEvent.eventId}
@@ -58,7 +58,7 @@ export const HomePage = () => {
                 <h2 className="text-3xl font-bold text-center tracking-tight mb-6">
                     メニュー
                 </h2>
-                <div className="grid grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {functions.map((func) => {
                         if (func.path === Paths.HOME) return null;
                         return (
