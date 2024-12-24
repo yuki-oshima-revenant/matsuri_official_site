@@ -1,12 +1,13 @@
 use aws_sdk_s3::{primitives::ByteStream, types::StorageClass};
 use matsuri_official_site_common::{load_env_file, OpaqueError};
-use std::env;
+use std::{collections::HashSet, env};
 
 const AWS_BUCKET_NAME: &str = "delivery.unronritaro.net";
 
 #[tokio::main]
 async fn main() -> Result<(), OpaqueError> {
     load_env_file()?;
+    let target_events: HashSet<String> = vec!["2023"].into_iter().map(|s| s.to_string()).collect();
     let config = aws_config::load_from_env().await;
     let s3_client = aws_sdk_s3::Client::new(&config);
     let data_dir = env::current_dir()?.join("..").join("..").join("data");
@@ -15,6 +16,10 @@ async fn main() -> Result<(), OpaqueError> {
     for event_dir in audio_dir.read_dir()? {
         let event_dir = event_dir?;
         let event_dir_path = event_dir.path();
+        let event_dir_name = event_dir_path.file_name().unwrap().to_str().unwrap();
+        if !target_events.contains(event_dir_name) {
+            continue;
+        }
         for audio_entry in event_dir_path.read_dir()? {
             let audio_entry = audio_entry?;
             let audio_path = audio_entry.path();
@@ -26,7 +31,7 @@ async fn main() -> Result<(), OpaqueError> {
                         .bucket(AWS_BUCKET_NAME)
                         .key(&format!(
                             "matsuri/audio/{}/{}",
-                            event_dir_path.file_name().unwrap().to_str().unwrap(),
+                            event_dir_name,
                             audio_path.file_stem().unwrap().to_str().unwrap()
                         ))
                         .body(ByteStream::from_path(&audio_path).await?)
@@ -42,6 +47,10 @@ async fn main() -> Result<(), OpaqueError> {
     for event_dir in video_dir.read_dir()? {
         let event_dir = event_dir?;
         let event_dir_path = event_dir.path();
+        let event_dir_name = event_dir_path.file_name().unwrap().to_str().unwrap();
+        if !target_events.contains(event_dir_name) {
+            continue;
+        }
         for video_entry in event_dir_path.read_dir()? {
             let video_entry = video_entry?;
             let video_path = video_entry.path();
@@ -53,7 +62,7 @@ async fn main() -> Result<(), OpaqueError> {
                         .bucket(AWS_BUCKET_NAME)
                         .key(&format!(
                             "matsuri/video/{}/{}",
-                            event_dir_path.file_name().unwrap().to_str().unwrap(),
+                            event_dir_name,
                             video_path.file_stem().unwrap().to_str().unwrap()
                         ))
                         .body(ByteStream::from_path(&video_path).await?)

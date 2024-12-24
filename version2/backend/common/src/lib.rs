@@ -1,5 +1,6 @@
 pub mod dynamodb;
 pub mod google;
+pub mod media;
 
 use std::{
     env::{self, VarError},
@@ -20,6 +21,7 @@ pub fn load_env_file() -> Result<(), OpaqueError> {
     Ok(())
 }
 
+#[derive(Clone)]
 pub struct EnvironmentVariables {
     pub auth_default_return_to: String,
     pub google_oauth_client_id: String,

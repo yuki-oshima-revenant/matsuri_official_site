@@ -28,6 +28,21 @@ const getGoogleDriveUrl = (id: string) => {
     return `https://drive.google.com/file/d/${id}/view?usp=sharing`;
 };
 
+const GoogleDriveLink: FunctionComponent<{
+    googleDriveFileId: string;
+}> = ({ googleDriveFileId }) => {
+    return (
+        <a
+            className="text-blue-500 hover:underline cursor-pointer duration-200 ease-in-out mx-1"
+            onClick={() => {
+                window.open(getGoogleDriveUrl(googleDriveFileId));
+            }}
+        >
+            Google Drive
+        </a>
+    );
+};
+
 const NeedLogin: FunctionComponent<{
     googleDriveFileId: string | null;
 }> = ({ googleDriveFileId }) => {
@@ -38,16 +53,9 @@ const NeedLogin: FunctionComponent<{
                 {googleDriveFileId && (
                     <div>
                         アカウントをお持ちでない方は
-                        <a
-                            className="text-blue-500 hover:underline cursor-pointer duration-200 ease-in-out mx-1"
-                            onClick={() => {
-                                window.open(
-                                    getGoogleDriveUrl(googleDriveFileId),
-                                );
-                            }}
-                        >
-                            Google Drive
-                        </a>
+                        <GoogleDriveLink
+                            googleDriveFileId={googleDriveFileId}
+                        />
                         からご覧ください。
                     </div>
                 )}
@@ -68,11 +76,30 @@ const NeedLogin: FunctionComponent<{
     );
 };
 
+const NotFound: FunctionComponent<{
+    googleDriveFileId: string | null;
+}> = ({ googleDriveFileId }) => {
+    return (
+        <div className="py-6">
+            <div className="text-center text-zinc-300 text-sm">
+                <div className="">ファイルが見つかりませんでした</div>
+                {googleDriveFileId && (
+                    <div>
+                        <GoogleDriveLink
+                            googleDriveFileId={googleDriveFileId}
+                        />
+                        からご覧ください。
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
 const AudioView: FunctionComponent<{
     performance: Performance;
 }> = ({ performance }) => {
     const isLogin = useAtomValue(isLoginAtom);
-
     const audioUrl = useAtomValue(
         loadable(
             performanceMediaUrlAtom({
@@ -87,11 +114,13 @@ const AudioView: FunctionComponent<{
         return (
             <NeedLogin googleDriveFileId={performance.googleDrive.audioId} />
         );
-    if (audioUrl.state !== "hasData") return null;
-
+    if (audioUrl.state !== "hasData" || !audioUrl.data) return null;
+    if (audioUrl.data.status === 404) {
+        return <NotFound googleDriveFileId={performance.googleDrive.audioId} />;
+    }
     return (
         <div className="flex">
-            <audio src={audioUrl.data.url} controls className="grow" />
+            <audio src={audioUrl.data.url ?? ""} controls className="grow" />
         </div>
     );
 };
@@ -100,7 +129,6 @@ const VideoView: FunctionComponent<{
     performance: Performance;
 }> = ({ performance }) => {
     const isLogin = useAtomValue(isLoginAtom);
-
     const videoUrl = useAtomValue(
         loadable(
             performanceMediaUrlAtom({
@@ -115,12 +143,14 @@ const VideoView: FunctionComponent<{
         return (
             <NeedLogin googleDriveFileId={performance.googleDrive.videoId} />
         );
-    if (videoUrl.state !== "hasData") return null;
-
+    if (videoUrl.state !== "hasData" || !videoUrl.data) return null;
+    if (videoUrl.data.status === 404) {
+        return <NotFound googleDriveFileId={performance.googleDrive.videoId} />;
+    }
     return (
         <div className="flex">
             <video
-                src={videoUrl.data.url}
+                src={videoUrl.data.url ?? ""}
                 controls
                 className="grow aspect-video object-contain"
             />

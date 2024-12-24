@@ -54,15 +54,26 @@ export const performanceMediaUrlAtom = atomFamily(
     }) => {
         return atom<
             Promise<{
-                url: string;
-            }>
+                status: number;
+                url: string | null;
+            } | null>
         >(async () => {
             if (!eventId || !performanceOrder) return null;
             const response = await request({
                 endpoint: "/media/get_url",
                 body: { eventId, performanceOrder, mediaFormat },
             });
-            return await response.json();
+            if (response.status === 404) {
+                return {
+                    status: 404,
+                    url: null,
+                };
+            }
+            const { url } = (await response.json()) as { url?: string };
+            return {
+                status: response.status,
+                url: url || null,
+            };
         });
     },
     deepEqual,
