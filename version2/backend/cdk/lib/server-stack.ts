@@ -29,6 +29,9 @@ export class ServerStack extends Stack {
             managedPolicyArn:
                 "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
         });
+        role.addManagedPolicy({
+            managedPolicyArn: "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess",
+        });
         const handler = new RustFunction(this, "Handler", {
             role,
             environment: {
