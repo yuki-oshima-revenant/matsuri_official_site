@@ -7,7 +7,10 @@ const AWS_BUCKET_NAME: &str = "delivery.unronritaro.net";
 #[tokio::main]
 async fn main() -> Result<(), OpaqueError> {
     load_env_file()?;
-    let target_events: HashSet<String> = vec!["2023"].into_iter().map(|s| s.to_string()).collect();
+    let target_events: HashSet<String> = vec!["2019", "2018", "2017"]
+        .into_iter()
+        .map(|s| s.to_string())
+        .collect();
     let config = aws_config::load_from_env().await;
     let s3_client = aws_sdk_s3::Client::new(&config);
     let data_dir = env::current_dir()?.join("..").join("..").join("data");

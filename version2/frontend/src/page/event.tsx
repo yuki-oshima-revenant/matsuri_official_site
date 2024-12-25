@@ -37,7 +37,7 @@ export const EventPage = () => {
                     <ArchiveBreadcrumb event={null} />
                 </div>
                 <div className="flex">
-                    <h2 className="text-4xl font-bold h-auto my-auto tracking-tight">
+                    <h2 className="text-3xl md:text-4xl font-bold h-auto my-auto tracking-tight">
                         {title}
                     </h2>
                     <div className="grow" />

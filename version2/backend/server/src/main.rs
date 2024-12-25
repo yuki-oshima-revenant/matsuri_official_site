@@ -31,7 +31,7 @@ async fn main() -> Result<(), lambda_http::Error> {
         } else {
             "unronritaro.net".to_string()
         })
-        .with_expiry(Expiry::OnInactivity(Duration::days(1)));
+        .with_expiry(Expiry::OnInactivity(Duration::days(30)));
 
     let app = Router::new()
         .nest("/auth", auth::api_auth_router())

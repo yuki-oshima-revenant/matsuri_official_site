@@ -82,7 +82,7 @@ const NotFound: FunctionComponent<{
     return (
         <div className="py-6">
             <div className="text-center text-zinc-300 text-sm">
-                <div className="">ファイルが見つかりませんでした</div>
+                <div className="">ファイルが見つかりませんでした。</div>
                 {googleDriveFileId && (
                     <div>
                         <GoogleDriveLink
@@ -296,9 +296,9 @@ export const PerformancePage = () => {
                 <div className="mb-2">
                     <ArchiveBreadcrumb event={event} />
                 </div>
-                <div className="flex gap-2">
-                    <div>
-                        <div className="flex gap-2 text-4xl font-bold">
+                <div className="flex gap-2 overflow-x-hidden">
+                    <div className="truncate">
+                        <div className="flex gap-2 text-3xl md:text-4xl font-bold tracking-tight">
                             <div>{`${performance.performanceOrder}.`}</div>
                             <div>{performance.performerName}</div>
                         </div>

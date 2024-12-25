@@ -45,7 +45,7 @@ export const HomePage = () => {
                             : "最近の祭"}
                     </h2>
                     <div className="flex justify-center">
-                        <div className="max-w-[640px]">
+                        <div className="max-w-[640px] flex grow">
                             <EventCard
                                 event={recentEvent}
                                 key={recentEvent.eventId}
