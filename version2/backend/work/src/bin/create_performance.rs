@@ -10,8 +10,8 @@ use tokio::fs;
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct Archive {
-    evnet_id: String,
-    parformances: Vec<ArchivePerformance>,
+    event_id: String,
+    performances: Vec<ArchivePerformance>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -32,7 +32,7 @@ impl Archive {
         data_dir: &PathBuf,
     ) -> Result<Vec<Performance>, OpaqueError> {
         let mut performances = Vec::new();
-        for (index, archive_performance) in self.parformances.iter().enumerate() {
+        for (index, archive_performance) in self.performances.iter().enumerate() {
             let performance_order = index as i64 + 1;
             let mut start_time = 0;
             let mut end_time = 0;
@@ -67,7 +67,7 @@ impl Archive {
             .await
             {
                 for (index, line) in tracklist_text.lines().enumerate() {
-                    if index == 0 {
+                    if index == 0 || line.len() == 0 {
                         continue;
                     }
                     let track = Track::from_tsv_line(line)?;
@@ -75,7 +75,7 @@ impl Archive {
                 }
             }
             let performance = Performance {
-                event_id: self.evnet_id.clone(),
+                event_id: self.event_id.clone(),
                 performance_order,
                 performer_name: archive_performance.name.clone(),
                 start_time,
@@ -105,19 +105,28 @@ fn format_performance_time(date: i64, time: &str) -> Result<i64, OpaqueError> {
 #[tokio::main]
 async fn main() -> Result<(), OpaqueError> {
     load_env_file()?;
-    let dynamodb_client = DynamodbProcesser::new().await;
-    let events = dynamodb_client.list_events().await?;
-    let data_dir = env::current_dir()?.join("..").join("..").join("data");
+    let data_dir = env::current_dir()?.join("work").join("data");
     let archive_json_path = data_dir.join("archive.json");
     let archive_json = fs::read_to_string(archive_json_path).await?;
     let archives: Vec<Archive> = serde_json::from_str(&archive_json)?;
-    println!("{:?}", archives);
+
+    let dynamodb_client = DynamodbProcesser::new().await;
+    let events = dynamodb_client.list_events().await?;
+    println!("{:?}", events);
+    let target_event_ids = vec!["2026"];
+    let target_events: Vec<&Event> = events
+        .iter()
+        .filter(|event| target_event_ids.contains(&event.event_id.as_str()))
+        .collect();
     let mut all_performances = Vec::new();
     for archive in archives {
-        let event = events
+        let event = match target_events
             .iter()
-            .find(|event| event.event_id == archive.evnet_id)
-            .unwrap();
+            .find(|event| event.event_id == archive.event_id)
+        {
+            Some(event) => event,
+            None => continue,
+        };
         let performances = archive.format_into_performances(event, &data_dir).await?;
         all_performances.extend(performances);
     }

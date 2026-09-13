@@ -7,6 +7,10 @@ edition = "2021"
 name = "create-performance"
 path = "src/bin/create_performance.rs"
 
+[[bin]]
+name = "upload-media"
+path = "src/bin/upload_media.rs"
+
 [dependencies]
 tokio = { workspace = true }
 serde = { workspace = true }
